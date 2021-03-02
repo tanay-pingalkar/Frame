@@ -1,0 +1,8 @@
+{
+  "username":"postgres",
+  "password":"krutika24",
+  "type": "postgres",
+  "database": "celebrate",
+  "entities": ["./dist/entities/users.js"],
+  "synchronize": true
+}

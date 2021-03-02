@@ -1,0 +1,40 @@
+@import "../../global.scss";
+
+form {
+  width: 100%;
+  input {
+    width: 90%;
+    margin: 10px;
+    font-size: 18px;
+    border-radius: $radius;
+    border: 2px solid $green;
+    padding: 3px;
+    text-align: center;
+  }
+  button {
+    width: 92%;
+    padding: 3px;
+    margin: 10px;
+    font-size: 18px;
+    outline: none;
+    border: 2px solid $green;
+    border-radius: $radius;
+    background-color: $green;
+  }
+  p {
+    width: 92%;
+    margin: 10px;
+    font-size: 14px;
+  }
+  .error {
+    color: rgb(202, 0, 0);
+  }
+}
+input::placeholder {
+  /* Firefox, Chrome, Opera */
+  text-align: center;
+}
+
+.loader {
+  margin-left: 48%;
+}

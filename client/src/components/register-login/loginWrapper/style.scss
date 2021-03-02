@@ -1,0 +1,28 @@
+@import "../../../global.scss";
+
+.screen {
+  width: 300px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: $radius;
+  overflow: hidden;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+
+  .board {
+    background-color: $green;
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(to right, #9eaf05ba, #facd07cc),
+      url("../../../media/Wallpaper-Malavida-Green-Top-Image.jpg");
+    background-size: cover;
+  }
+  img {
+    height: 100px;
+    width: 80px;
+    position: absolute;
+    top: 50px;
+  }
+}
