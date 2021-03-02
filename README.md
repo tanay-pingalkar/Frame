@@ -1,0 +1,54 @@
+# Frame
+### Frame your art, DIYs and memes....
+It is an online plateform for sharing art, DIYs and memes. It is open source also means you can also contribute to Frame.
+
+## Technologies in use
+| technology     | reason                                                         | Cool  |
+| ---------------|:--------------------------------------------------------------:| -----:|
+| React          | for making components live                                     | |
+| graphql        | for single endpoint and to avoid over fetching                 |   |
+| nodejs         | as backend                                                     |    |
+|typescript      | for reducing bugs and decorator support for graphql            |       |
+|type-orm        | for migartions because typescript in in use and type orm is<br>made for it| |
+|Postgresql      | for relations ||
+|Redux           | for state management for scalability| |
+|Graphql-request | as client for graphql bcoz it is simple and dont have head <br>ache of cache like apollo server and we are also using redux so||
+|SCSS            | as preprocessor for css for mixins and variables||
+|JWT-token and argon| to keep users logged in and argor for bcrypting password.||
+|Pusher|for realtime notification service not in use||
+- ### React 
+  #### for making components live
+- ### Graphql 
+  #### for single endpoint and to avoid over fetching
+- ### Nodejs
+  #### as backend
+- ### Typescript
+  #### for reducing bugs and decorator support for graphql
+- ### type-orm
+  #### for migartions because typescript in in use and type orm is made for it
+- ### Postgresql 
+  #### for relations
+- ### Redux
+  #### for state management for scalability
+- ### Graphql-request
+  #### as client for graphql bcoz it is simple and dont have head ache of cache like apollo server and we are also using redux so
+- ### SCSS 
+  #### as preprocessor for css for mixins and variables
+- ### JWT-token and argon
+  #### to keep users logged in and argor for bcrypting password.
+#### upcoming tech
+- ### Pusher
+  #### for realtime notification service
+### 
+## setting up local enviroment
+have node, postgresql installed.
+* create database  `CREATE DATABASE database name`
+* create .env file under .env.example and fill all variables like .env.example.
+* `cd server` and `yarn install` 
+* `yarn start` if you have .env variable proper and every goes well you will see `server ha started!`
+* starting server for dev run `yarn watch` and split terminal and run `yarn dev`
+* `cd ..` to get to root dir and `cd client` and `yarn install`
+* to start client run `yarn start`
+#### wow you are good to go!
+## contribution guide
+make sure to create issue before adding new feature to Frame and make sure to clear all unused consoles and to resolve all typescript errors. 
