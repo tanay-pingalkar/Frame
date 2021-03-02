@@ -1,0 +1,7 @@
+client/node_modules
+server/node_modules
+server/dist
+.env
+client/yarn-error.log
+
+client/yarn.lock
