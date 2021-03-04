@@ -1,2 +1,11 @@
 $green: #abbb20;
 $radius: 10px;
+$shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+  rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+$red: rgb(202, 0, 0);
+
+@mixin center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

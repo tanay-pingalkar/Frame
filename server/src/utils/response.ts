@@ -1,5 +1,6 @@
 import { Users } from "../entities/users";
 import { ObjectType, Field } from "type-graphql";
+import { Frame } from "../entities/frame";
 
 @ObjectType()
 export class tokenResponse {
@@ -17,4 +18,13 @@ export class userResponse {
 
   @Field(() => Users, { nullable: true })
   user?: Users;
+}
+
+@ObjectType()
+export class addFr {
+  @Field(() => String)
+  msg: string;
+
+  @Field(() => Frame, { nullable: true })
+  frame?: Frame;
 }

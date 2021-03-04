@@ -6,13 +6,13 @@ import {
   UpdateDateColumn,
   BaseEntity,
   PrimaryGeneratedColumn,
-  OneToMany,
+  ManyToOne,
 } from "typeorm";
-import { Frame } from "./frame";
+import { Users } from "./users";
 
 @Entity()
 @ObjectType()
-export class Users extends BaseEntity {
+export class Frame extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn()
   id: number;
@@ -25,19 +25,11 @@ export class Users extends BaseEntity {
   @UpdateDateColumn()
   updatedAt = Date();
 
-  @Field(() => String)
-  @Column({ unique: true })
-  name: string;
-
-  @Field(() => String)
-  @Column({ unique: true })
-  email: string;
-
-  @Field(() => Frame)
-  @OneToMany(() => Frame, (frames) => frames.user)
-  frames: Frame[];
+  @Field(() => Users)
+  @ManyToOne(() => Users, (user) => user.frames)
+  user: Users;
 
   @Field(() => String)
   @Column()
-  password: string;
+  title: string;
 }

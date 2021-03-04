@@ -1,16 +1,12 @@
 @import "../../../global.scss";
 
 .screen {
+  @include center;
   width: 300px;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   border-radius: $radius;
   overflow: hidden;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
-    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
-
+  box-shadow: $shadow;
   .board {
     background-color: $green;
     width: 100%;

@@ -20,3 +20,12 @@ export class loginInput {
   @Field(() => String)
   password: string;
 }
+
+@InputType()
+export class farmeInfo {
+  @Field(() => Number)
+  id: number;
+
+  @Field(() => String)
+  title: string;
+}
