@@ -8,12 +8,21 @@ export interface authData {
     user: user;
   };
 }
-interface user {
+export interface user {
   id?: number;
   name?: string;
   email?: string;
 }
-interface subTokenData {
+export interface subTokenData {
   ErrorMsg: string | null;
   token: string | null;
+}
+
+export interface action {
+  type: string;
+  payload?: any;
+}
+
+export interface userAction extends action {
+  payload?: user;
 }

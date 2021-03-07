@@ -1,11 +1,9 @@
-import React from "react";
 import ReactDOM from "react-dom";
-import "./index.scss";
+import "./styles/index.scss";
 import App from "./App";
 import { createStore } from "redux";
 import allReducer from "./redux/combine";
 import { Provider } from "react-redux";
-
 import { composeWithDevTools } from "redux-devtools-extension";
 
 const store = createStore(allReducer, composeWithDevTools());

@@ -1,5 +1,5 @@
 import React from "react";
-import "./style.scss";
+import "../styles/loginWrapper.scss";
 
 const LoginWrapper = (
   props: JSX.IntrinsicAttributes &

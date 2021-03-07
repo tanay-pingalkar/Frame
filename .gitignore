@@ -5,3 +5,4 @@ server/dist
 client/yarn-error.log
 
 client/yarn.lock
+server/yarn.lock

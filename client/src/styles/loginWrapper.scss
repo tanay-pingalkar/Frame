@@ -1,4 +1,4 @@
-@import "../../../global.scss";
+@import "./global.scss";
 
 .screen {
   @include center;
@@ -12,7 +12,7 @@
     width: 100%;
     height: 100px;
     background: linear-gradient(to right, #9eaf05ba, #facd07cc),
-      url("../../../media/Wallpaper-Malavida-Green-Top-Image.jpg");
+      url("../media/Wallpaper-Malavida-Green-Top-Image.jpg");
     background-size: cover;
   }
   img {

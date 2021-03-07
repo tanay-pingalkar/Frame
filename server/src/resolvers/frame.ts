@@ -1,7 +1,7 @@
 //import
 import { farmeInfo } from "../utils/input";
 import { addFr } from "../utils/response";
-import { Arg, Mutation, Resolver } from "type-graphql";
+import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import { Frame } from "../entities/frame";
 import { Users } from "../entities/users";
 
@@ -10,7 +10,6 @@ import { Users } from "../entities/users";
 export class Frames {
   @Mutation(() => addFr)
   async addFrame(@Arg("frameInfo") frameInfoo: farmeInfo): Promise<addFr> {
-    console.log(frameInfoo);
     if (frameInfoo.title.length <= 2) {
       return {
         msg: "frame title must be greater than 3",
@@ -28,12 +27,21 @@ export class Frames {
     } catch (err) {
       console.log(err);
       return {
-        msg: " an unusual error has occure",
+        msg: " an unusual erorr has occure",
       };
     }
     return {
       msg: "success",
       frame: frame,
     };
+  }
+
+  @Query(() => [Frame])
+  async getPost(): Promise<Frame[]> {
+    const framess: Frame[] = await Frame.createQueryBuilder()
+      .leftJoinAndSelect("Frame.user", "users")
+      .getMany();
+    console.log(framess);
+    return framess;
   }
 }

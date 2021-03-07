@@ -1,16 +1,17 @@
 import React, { useState } from "react";
-import { client } from "../../graphql/client";
-import { LOGIN } from "../../graphql/mutations/login";
-import { replace } from "../../utils/replaceSpace";
-import LoginWrapper from "./loginWrapper/loginWrapper";
-import "./style.scss";
+import { replace } from "../utils/replaceSpace";
+import LoginWrapper from "../components/loginWrapper";
+import "../styles/login.scss";
 import ReactLoading from "react-loading";
+import { client } from "../graphql/client";
+import { REGISTER } from "../graphql/mutations/register";
 import { Redirect } from "react-router-dom";
-import { tokenData } from "../../utils/types";
+import { tokenData } from "../utils/types";
 
-const Login = () => {
+const Register = () => {
   const [name, setName] = useState("");
   const [password, setpassword] = useState("");
+  const [email, setemail] = useState("");
   const [error, seterror] = useState("");
   const [isLoading, setLoading] = useState(false);
   const [redirect, setredirect] = useState(<span></span>);
@@ -20,19 +21,20 @@ const Login = () => {
     setLoading(true);
     let token: tokenData = {};
     try {
-      token = await client.request<tokenData>(LOGIN, {
-        nameOrEmail: name,
+      token = await client.request<tokenData>(REGISTER, {
+        name: name,
+        email: email,
         password: password,
       });
-      if (token.login!.ErrorMsg) seterror("*" + token.login!.ErrorMsg);
+      if (token.register!.ErrorMsg) seterror("*" + token.register!.ErrorMsg);
     } catch (err) {
       console.log(err);
       setLoading(false);
       return;
     }
     setLoading(false);
-    if (token.login!.token) {
-      localStorage.setItem("TOKEN", token.login!.token);
+    if (token.register!.token) {
+      localStorage.setItem("TOKEN", token.register!.token);
       setredirect(<Redirect to="/"></Redirect>);
     }
   };
@@ -42,15 +44,18 @@ const Login = () => {
       <form onSubmit={(e) => handleSubmit(e)}>
         <p className="error">{error}</p>
         <input
-          placeholder="name or email"
+          placeholder="name"
           onChange={(e) => replace(e, setName)}
           value={name}
+        ></input>
+        <input
+          placeholder="email"
+          onChange={(e) => setemail(e.target.value)}
         ></input>
         <input
           type="password"
           placeholder="password"
           onChange={(e) => setpassword(e.target.value)}
-          value={password}
         ></input>
         <button type="submit">
           {isLoading ? (
@@ -62,16 +67,15 @@ const Login = () => {
               className="loader"
             />
           ) : (
-            <span>Login</span>
+            <span>Register</span>
           )}
         </button>
-
         <p>
-          if you dont have account? <a href="/register">Register</a> please
+          if you already have account? <a href="/login">Log in</a> please
         </p>
       </form>
     </LoginWrapper>
   );
 };
 
-export default Login;
+export default Register;
