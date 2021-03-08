@@ -1,0 +1,16 @@
+@import "./global.scss";
+
+.feed {
+  background-color: rgb(198, 255, 236);
+  height: 100%;
+  max-width: 450px;
+  position: relative;
+  left: 45%;
+  transform: translate(-50%);
+  overflow-y: scroll;
+}
+@media only screen and (max-width: 500px) {
+  .feed {
+    left: 50%;
+  }
+}

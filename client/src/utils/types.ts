@@ -26,3 +26,14 @@ export interface action {
 export interface userAction extends action {
   payload?: user;
 }
+
+export interface frame {
+  title: string;
+  user: user;
+}
+
+export type frames = Array<frame>;
+
+export interface getFramesType {
+  getFrames: frames;
+}

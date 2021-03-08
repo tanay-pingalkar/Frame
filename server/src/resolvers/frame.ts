@@ -37,7 +37,7 @@ export class Frames {
   }
 
   @Query(() => [Frame])
-  async getPost(): Promise<Frame[]> {
+  async getFrames(): Promise<Frame[]> {
     const framess: Frame[] = await Frame.createQueryBuilder()
       .leftJoinAndSelect("Frame.user", "users")
       .getMany();
