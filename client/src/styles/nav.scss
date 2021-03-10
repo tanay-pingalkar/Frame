@@ -9,21 +9,21 @@
   width: 100%;
   border-radius: 60px;
   background-color: $green;
-
+  margin-top: 5px;
   svg {
     transition: 0.1s ease-in-out;
   }
   :nth-child(1) {
-    margin-top: 35px;
-    margin-left: 6px;
+    margin-top: 30px;
+    margin-left: 8px;
   }
   :nth-child(2) {
-    margin-top: 10px;
-    margin-left: 5px;
+    margin-top: 15px;
+    margin-left: 8px;
   }
   :nth-child(3) {
-    margin-top: 10px;
-    margin-left: 6px;
+    margin-top: 15px;
+    margin-left: 8px;
   }
 
   //hovers
@@ -41,5 +41,39 @@
     width: 35px;
     margin-left: 1px;
     height: 35px;
+  }
+}
+
+.profile {
+  height: 40px;
+  width: 40px;
+  border: 2px solid #000000;
+  box-sizing: border-box;
+  border-radius: 20px;
+  margin-top: 5px;
+}
+.add {
+  height: 40px;
+  background-color: $green;
+  border-radius: 35px;
+  font-size: 36px;
+  padding-left: 9px;
+  margin-top: 8px;
+}
+
+@media only screen and (max-width: 560px) {
+  .nav {
+    position: absolute;
+    bottom: -117px;
+    left: 45%;
+    transform: translate(-50%) rotate(90deg);
+    .toggler {
+      svg {
+        transform: rotate(-90deg);
+      }
+    }
+    .add {
+      transform: rotate(-90deg);
+    }
   }
 }
