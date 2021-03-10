@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Feed from "../components/feed";
 import { setAuth } from "../redux/actions/setUser";

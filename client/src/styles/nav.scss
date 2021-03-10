@@ -1,0 +1,45 @@
+@import "./global.scss";
+.nav {
+  position: relative;
+  width: 40px;
+  margin-left: 10px;
+}
+.toggler {
+  height: 180px;
+  width: 100%;
+  border-radius: 60px;
+  background-color: $green;
+
+  svg {
+    transition: 0.1s ease-in-out;
+  }
+  :nth-child(1) {
+    margin-top: 35px;
+    margin-left: 6px;
+  }
+  :nth-child(2) {
+    margin-top: 10px;
+    margin-left: 5px;
+  }
+  :nth-child(3) {
+    margin-top: 10px;
+    margin-left: 6px;
+  }
+
+  //hovers
+  :nth-child(2):hover {
+    width: 35px;
+    margin-left: 1px;
+    height: 35px;
+  }
+  :nth-child(1):hover {
+    width: 35px;
+    margin-left: 1px;
+    height: 35px;
+  }
+  :nth-child(3):hover {
+    width: 35px;
+    margin-left: 1px;
+    height: 35px;
+  }
+}
