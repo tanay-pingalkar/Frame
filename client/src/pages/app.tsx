@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Feed from "../components/feed";
+import Box from "../components/box";
 import { setAuth } from "../redux/actions/setUser";
 import "../styles/global.scss";
 
@@ -15,7 +15,7 @@ const App = () => {
   console.log(isAuth, userInfo);
   return (
     <div className="full-box">
-      <Feed></Feed>
+      <Box></Box>
     </div>
   );
 };

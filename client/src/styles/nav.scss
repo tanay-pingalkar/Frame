@@ -54,11 +54,12 @@
 }
 .add {
   height: 40px;
+  width: 100%;
   background-color: $green;
   border-radius: 35px;
   font-size: 36px;
-  padding-left: 9px;
   margin-top: 8px;
+  border: none;
 }
 
 @media only screen and (max-width: 560px) {

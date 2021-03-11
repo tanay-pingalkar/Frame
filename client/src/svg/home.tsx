@@ -1,4 +1,8 @@
+import { useDispatch } from "react-redux";
+import { setWhere } from "../redux/actions/setWhere";
+
 const Home = () => {
+  const dispatch = useDispatch();
   return (
     <svg
       width="27"
@@ -6,6 +10,9 @@ const Home = () => {
       viewBox="0 0 27 27"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      onClick={() => {
+        dispatch(setWhere("home"));
+      }}
     >
       <g clip-path="url(#clip0)">
         <path
