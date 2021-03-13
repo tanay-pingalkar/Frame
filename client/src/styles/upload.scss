@@ -39,6 +39,9 @@
     display: block;
     width: 97%;
     background: white;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
   }
   svg {
     position: absolute;
@@ -52,7 +55,6 @@
     border-radius: 20px;
     border: none;
     background: $green;
-    margin-top: 5px;
     position: relative;
     left: 1.5%;
   }
@@ -66,4 +68,10 @@
     position: relative;
     left: 2%;
   }
+}
+
+.loader {
+  position: relative;
+  bottom: 10%;
+  right: 25%;
 }
