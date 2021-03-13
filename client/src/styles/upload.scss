@@ -1,0 +1,69 @@
+@import "./global.scss";
+.input-frame {
+  width: 96%;
+  overflow: hidden;
+  height: 75vh;
+  position: relative;
+  left: 2%;
+  top: 6%;
+  background: rgb(198, 255, 236);
+  box-shadow: 0px 0px 15px 3px rgba(0, 0, 0, 0.25);
+  .title {
+    width: 96%;
+    margin-left: 1.5%;
+    margin-top: 10px;
+    border: none;
+    height: 10%;
+    font-size: 30px;
+    padding-left: 5px;
+  }
+  .description {
+    width: 96%;
+    margin-left: 1.5%;
+    margin-top: 10px;
+    border: none;
+    height: 27%;
+    font-size: 17px;
+    padding-left: 5px;
+  }
+  .image-input {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+  }
+  span {
+    margin-top: 10px;
+    margin-left: 1.5%;
+    margin-top: 10px;
+    height: 45%;
+    display: block;
+    width: 97%;
+    background: white;
+  }
+  svg {
+    position: absolute;
+    top: 32%;
+    left: 45%;
+  }
+  button {
+    width: 100px;
+    height: 6vh;
+    font-size: 4vh;
+    border-radius: 20px;
+    border: none;
+    background: $green;
+    margin-top: 5px;
+    position: relative;
+    left: 1.5%;
+  }
+}
+.main-box {
+  height: 90%;
+  h1 {
+    width: 96%;
+    display: inline;
+    top: 2%;
+    position: relative;
+    left: 2%;
+  }
+}

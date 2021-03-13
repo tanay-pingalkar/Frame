@@ -6,3 +6,6 @@ client/yarn-error.log
 
 server/yarn.lock
 client/yarn.lock
+server/images/*.jpg
+server/images/*.png
+server/images/*.jpeg

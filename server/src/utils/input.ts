@@ -1,4 +1,6 @@
+import { GraphQLUpload } from "apollo-server";
 import { InputType, Field } from "type-graphql";
+import { Upload } from "./types";
 
 @InputType()
 export class input {
@@ -28,4 +30,10 @@ export class farmeInfo {
 
   @Field(() => String)
   title: string;
+
+  @Field(() => GraphQLUpload)
+  file: Upload;
+
+  @Field(() => String)
+  description: string;
 }

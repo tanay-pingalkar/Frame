@@ -32,4 +32,12 @@ export class Frame extends BaseEntity {
   @Field(() => String)
   @Column()
   title: string;
+
+  @Field(() => String)
+  @Column()
+  frame: string;
+
+  @Field(() => String)
+  @Column()
+  description: string;
 }

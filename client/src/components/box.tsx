@@ -11,18 +11,12 @@ const Upload = lazy(() => {
 });
 
 const Box = () => {
-  const [frames, setFrames] = useState<frames>([]);
   const where: where = useSelector((state: any) => state.where);
-  useEffect(() => {
-    client.request(GET_FRAMES).then(({ getFrames }: getFramesType) => {
-      setFrames(getFrames);
-    });
-  }, []);
   return (
     <div className="flex">
       <div className="feed">
         {where === "home" ? (
-          <Frames frames={frames}></Frames>
+          <Frames></Frames>
         ) : where === "upload" ? (
           <Suspense fallback={<div>Loading...</div>}>
             <Upload />
