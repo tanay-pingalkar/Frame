@@ -9,3 +9,5 @@ client/yarn.lock
 server/images/*.jpg
 server/images/*.png
 server/images/*.jpeg
+server/yarn-error.log
+server/yarn.lock

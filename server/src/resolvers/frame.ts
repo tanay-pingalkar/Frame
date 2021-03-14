@@ -12,13 +12,12 @@ import { create_UUID } from "../utils/uuid";
 export class Frames {
   @Mutation(() => addFr)
   async addFrame(@Arg("frameInfo") frameInfoo: farmeInfo): Promise<addFr> {
-    console.log(frameInfoo.file);
     const file = await frameInfoo.file;
-    const readStream = file.createReadStream();
     const img_uuid = create_UUID();
     const write = async (): Promise<Boolean> => {
       try {
-        await readStream
+        await file
+          .createReadStream()
           .pipe(
             createWriteStream(
               __dirname + `/../../images/${img_uuid + file.filename}`
@@ -74,11 +73,13 @@ export class Frames {
   }
 
   @Query(() => [Frame])
-  async getFrames(): Promise<Frame[]> {
+  async getFrames(@Arg("offset") offset: number): Promise<Frame[]> {
     const framess: Frame[] = await Frame.createQueryBuilder()
+      .limit(5)
+      .offset(offset * 5)
+      .orderBy("Frame.id", "DESC")
       .leftJoinAndSelect("Frame.user", "users")
       .getMany();
-    console.log(framess);
     return framess;
   }
 }

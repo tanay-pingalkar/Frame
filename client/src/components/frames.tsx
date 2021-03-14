@@ -1,21 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { client } from "../graphql/client";
-import { GET_FRAMES } from "../graphql/queries/getFrames";
-import { frames, frame, getFramesType } from "../utils/types";
+import React, { useState } from "react";
+import { useGetFrames } from "../utils/useGetFrame";
+import { frame } from "../utils/types";
 import Frame from "./frame";
 
 const Frames = () => {
-  const [frames, setFrames] = useState<frames>([]);
-  useEffect(() => {
-    client.request(GET_FRAMES).then(({ getFrames }: getFramesType) => {
-      setFrames(getFrames);
-    });
-  }, []);
+  const [offset, setOffset] = useState(0);
+  const frames = useGetFrames(offset);
   return (
-    <div>
+    <div
+      className="frames"
+      onWheelCapture={(e) => {
+        console.log(e);
+      }}
+    >
       {frames.map((frame: frame) => (
         <Frame frame={frame}></Frame>
       ))}
+      <button onClick={() => setOffset(offset + 1)}>more</button>
     </div>
   );
 };

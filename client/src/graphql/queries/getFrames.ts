@@ -1,9 +1,11 @@
 import { gql } from "graphql-request";
 
 export const GET_FRAMES = gql`
-  {
-    getFrames {
+  query getFrames($offset: Float!) {
+    getFrames(offset: $offset) {
       title
+      frame
+      description
       user {
         name
       }

@@ -1,20 +1,26 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { client } from "../graphql/client";
 import { ADD_FRAME } from "../graphql/mutations/addFrame";
 import UploadSvg from "../svg/upload";
 import "../styles/upload.scss";
 import ReactLoading from "react-loading";
+import { setWhere } from "../redux/actions/setWhere";
 
 const Upload = () => {
   const [title, setTitle] = useState("");
   const [description, setdescription] = useState("");
-  const [img, setImg] = useState<any>();
+  const [img, setImg] = useState<File>();
   const [base64, setBase64] = useState<string | ArrayBuffer | null>("");
   const userInfo = useSelector((states: any) => states.userInfo);
   const [isLoading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const handleSubmit = async () => {
+    if (!img || title === "") {
+      alert("fill the form");
+      return;
+    }
     setLoading(true);
     try {
       const res = await client.request(ADD_FRAME, {
@@ -24,6 +30,9 @@ const Upload = () => {
         file: img,
       });
       alert(res.addFrame.msg);
+      if (res.addFrame.msg === "success") {
+        dispatch(setWhere("home"));
+      }
     } catch (err) {
       setLoading(false);
       console.log(err);
@@ -31,13 +40,13 @@ const Upload = () => {
 
     setLoading(false);
   };
-  console.log(img);
+  console.log(description);
   return (
     <div className="main-box">
       <h1>frame whatever you have</h1>
       <div className="input-frame">
         <input
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) => setTitle(e.target.value.trim())}
           placeholder="title.."
           className="title"
         ></input>
@@ -61,7 +70,7 @@ const Upload = () => {
         <textarea
           placeholder="description.."
           className="description"
-          onChange={(e) => setdescription(e.target.value)}
+          onChange={(e) => setdescription(e.target.value.trim())}
         ></textarea>
         <button onClick={handleSubmit}>
           {isLoading ? (

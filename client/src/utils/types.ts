@@ -35,6 +35,8 @@ export interface whereActtion extends Omit<action, "payload"> {
 
 export interface frame {
   title: string;
+  frame: string;
+  description: string;
   user: user;
 }
 
