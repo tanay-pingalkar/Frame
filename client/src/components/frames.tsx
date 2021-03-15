@@ -7,57 +7,47 @@ import "../styles/frame.scss";
 const Frames = () => {
   const [offset, setOffset] = useState(0);
   const frames = useGetFrames(offset);
-  const [show, setshow] = useState<frames>([]);
   const [i, seti] = useState(0);
   useEffect(() => {
-    const ar: Array<frame> = [];
     console.log(frames);
     if (frames.length !== 0) {
-      ar.push(frames[i]);
-      ar.push(frames[i + 1]);
-      ar.push(frames[i + 2]);
-      setshow(ar);
       seti(i + 1);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [frames]);
-
   return (
     <div
       className="frames"
       onWheel={(e) => {
         if (e.deltaY < 0) {
-          const ar: Array<frame> = [];
-          console.log(i);
           if (frames.length !== 0 && i > 0) {
-            if (frames[i]) ar.push(frames[i]);
-            if (frames[i - 1]) ar.push(frames[i - 1]);
-            if (frames[i - 2]) ar.push(frames[i - 2]);
-            setshow(ar);
             seti(i - 1);
           }
         } else {
-          const ar: Array<frame> = [];
-          if (frames.length !== 0) {
-            if (frames[i]) ar.push(frames[i]);
-            if (frames[i + 1]) ar.push(frames[i + 1]);
-            if (frames[i + 2]) ar.push(frames[i + 2]);
-            setshow(ar);
+          if (frames.length !== 0 && frames.length - 1 !== i) {
             if (i === 8 * offset + 1) {
               setOffset(offset + 1);
             }
             seti(i + 1);
           }
         }
-        console.log(show);
       }}
     >
-      {show.map((frame: frame) => (
+      {frames.length !== 0 ? (
         <div>
-          <Frame frame={frame}></Frame>
+          {frames[i] ? <p>{frames[i].title}</p> : <span></span>}
+          {frames[i + 1] ? (
+            <Frame frame={frames[i + 1]}></Frame>
+          ) : (
+            <span></span>
+          )}
+          {frames[i + 2] ? <p>{frames[i + 2].title}</p> : <span></span>}
         </div>
-      ))}
+      ) : (
+        <h1>loading</h1>
+      )}
+
       <button onClick={() => setOffset(offset + 1)}>more</button>
     </div>
   );
