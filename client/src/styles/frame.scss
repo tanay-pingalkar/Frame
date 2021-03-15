@@ -30,3 +30,12 @@
     padding: 10px;
   }
 }
+.frames {
+  overflow: hidden;
+  height: 100%;
+}
+@media only screen and (max-width: 560px) {
+  .frames {
+    height: 90%;
+  }
+}
