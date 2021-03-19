@@ -9,23 +9,32 @@ const Frames = () => {
   const frames = useGetFrames(offset);
   const [i, seti] = useState(0);
   useEffect(() => {
-    console.log(frames);
-    if (frames.length !== 0) {
-      seti(i + 1);
-    }
-
+    reset();
+    document.querySelectorAll(".card")[i]?.classList.add("above");
+    document.querySelectorAll(".card")[i + 1]?.classList.add("view");
+    document.querySelectorAll(".card")[i + 2]?.classList.add("below");
+    seti(i + 1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [frames]);
   return (
     <div
       className="frames"
-      onWheel={(e) => {
+      onWheel={async (e) => {
+        console.log(i);
         if (e.deltaY < 0) {
           if (frames.length !== 0 && i > 0) {
+            reset();
+            document.querySelectorAll(".card")[i]?.classList.add("above");
+            document.querySelectorAll(".card")[i - 1]?.classList.add("view");
+            document.querySelectorAll(".card")[i - 2]?.classList.add("below");
             seti(i - 1);
           }
         } else {
           if (frames.length !== 0 && frames.length - 1 !== i) {
+            reset();
+            document.querySelectorAll(".card")[i]?.classList.add("above");
+            document.querySelectorAll(".card")[i + 1]?.classList.add("view");
+            document.querySelectorAll(".card")[i + 2]?.classList.add("below");
             if (i === 8 * offset + 1) {
               setOffset(offset + 1);
             }
@@ -34,22 +43,16 @@ const Frames = () => {
         }
       }}
     >
-      {frames.length !== 0 ? (
-        <div>
-          {frames[i] ? <p>{frames[i].title}</p> : <span></span>}
-          {frames[i + 1] ? (
-            <Frame frame={frames[i + 1]}></Frame>
-          ) : (
-            <span></span>
-          )}
-          {frames[i + 2] ? <p>{frames[i + 2].title}</p> : <span></span>}
-        </div>
-      ) : (
-        <h1>loading</h1>
-      )}
-
-      <button onClick={() => setOffset(offset + 1)}>more</button>
+      {frames.map((frame: frame) => (
+        <Frame frame={frame}></Frame>
+      ))}
     </div>
   );
 };
 export default Frames;
+
+function reset() {
+  document.querySelectorAll(".card").forEach((child) => {
+    child.className = "card";
+  });
+}

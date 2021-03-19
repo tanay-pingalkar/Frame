@@ -10,7 +10,7 @@ const Frame: React.FC<props> = ({ frame }) => {
       <p className="name">{frame.user.name}</p>
       <p className="title">{frame.title}</p>
       <img src={frame.frame} alt="lol" className="img"></img>
-      <h4>{frame.description}</h4>
+      <p className="description">{frame.description}</p>
     </div>
   );
 };

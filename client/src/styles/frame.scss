@@ -1,33 +1,78 @@
+$big_width: 96%;
+$small_width: 92%;
+$big_left: 4%;
+$small_left: 2%;
+
+@keyframes viewUp {
+  0% {
+    height: 15vh;
+    top: 79%;
+    width: $small_width;
+    left: $big_left;
+  }
+  100% {
+    height: 65vh;
+    z-index: 10;
+    top: 15%;
+    width: $big_width;
+    left: $small_left;
+  }
+}
+@keyframes aboveUp {
+  0% {
+    height: 65vh;
+    top: 15%;
+    z-index: 10;
+    width: $big_width;
+    left: $small_left;
+  }
+  100% {
+    height: 15vh;
+    top: 2%;
+    left: $big_left;
+    z-index: 0;
+    width: $small_width;
+  }
+}
+@keyframes belowUp {
+  0% {
+    height: 0vh;
+    top: 92%;
+  }
+  100% {
+    height: 15vh;
+    top: 79%;
+  }
+}
+
 .img {
   object-fit: contain;
-  height: 45vh;
   width: 96%;
   position: relative;
   left: 2%;
+  height: 40vh;
   background-color: azure;
 }
 .card {
-  width: 94%;
-  left: 2%;
+  position: absolute;
+  display: none;
   border-radius: 5px;
-  padding: 5px;
   overflow: hidden;
-  height: 65vh;
-  margin-top: 20px;
-  position: relative;
-  top: 6%;
   background: rgb(198, 255, 236);
   box-shadow: 0px 0px 15px 3px rgba(0, 0, 0, 0.25);
   .title {
-    padding-left: 10px;
-    padding-bottom: 5px;
     font-size: 20px;
+    margin-left: 10px;
   }
   .name {
-    padding-left: 10px;
+    margin-left: 10px;
+    margin-top: 10px;
+    font-size: 17px;
   }
-  h4 {
-    padding: 10px;
+  .description {
+    margin-left: 10px;
+    font-size: 17px;
+    overflow-wrap: break-word;
   }
 }
 .frames {
@@ -37,5 +82,34 @@
 @media only screen and (max-width: 560px) {
   .frames {
     height: 90%;
+  }
+}
+
+.card.view {
+  display: block;
+  animation: viewUp 1s ease forwards;
+  width: 96%;
+  z-index: 10;
+}
+.card.above {
+  display: block;
+  z-index: 5;
+  animation: aboveUp 1s ease forwards;
+  .img,
+  .description {
+    display: none;
+  }
+}
+.card.below {
+  width: $small_width;
+  left: $big_left;
+  display: block;
+  animation: belowUp 1s ease forwards;
+  .img,
+  .description {
+    display: none;
+  }
+  .name {
+    margin-top: 1px;
   }
 }
