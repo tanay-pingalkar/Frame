@@ -4,33 +4,19 @@ import { addFr } from "../utils/response";
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import { Frame } from "../entities/frame";
 import { Users } from "../entities/users";
-import { createWriteStream } from "fs";
 import { create_UUID } from "../utils/uuid";
+import { write } from "src/utils/imageWrite";
 
 //resolver
 @Resolver()
 export class Frames {
   @Mutation(() => addFr)
   async addFrame(@Arg("frameInfo") frameInfoo: farmeInfo): Promise<addFr> {
+    // some global declaration
     const file = await frameInfoo.file;
     const img_uuid = create_UUID();
-    const write = async (): Promise<Boolean> => {
-      try {
-        await file
-          .createReadStream()
-          .pipe(
-            createWriteStream(
-              __dirname + `/../../images/${img_uuid + file.filename}`
-            )
-          )
-          .on("finish", () => console.log("saved"))
-          .on("error", () => console.log("oops"));
-        return true;
-      } catch (error) {
-        console.log(error);
-        return false;
-      }
-    };
+
+    // checks for if frameInfo title length is less than 3
     if (frameInfoo.title.length <= 2) {
       return {
         msg: "frame title must be greater than 3",
@@ -38,6 +24,7 @@ export class Frames {
     }
     let frame: Frame;
     try {
+      // check for jf the user with given id exists if not then it will return "user not exists"
       const user = await Users.findOne(frameInfoo.id, {
         relations: ["frames"],
       });
@@ -46,12 +33,16 @@ export class Frames {
           msg: "user not exist",
         };
       }
-      const lol = await write();
+
+      // then it will try to save image
+      const lol = await write(file, img_uuid);
       if (!lol) {
         return {
           msg: "cannot save image",
         };
       }
+
+      // and now and will save frame one to many relation to user
       frame = await Frame.create({
         title: frameInfoo.title,
         frame: `http://localhost:4000/${img_uuid + file.filename}`,
@@ -62,10 +53,13 @@ export class Frames {
       await user.save();
       frame = await Frame.findOne(frame.id, { relations: ["user"] });
     } catch (err) {
+      // if any thing goes wrong it will return "an unusual error"
       return {
         msg: " an unusual erorr has occure",
       };
     }
+
+    // if every thing goes well , it will return msg success message and frame...
     return {
       msg: "success",
       frame: frame,

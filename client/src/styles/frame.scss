@@ -1,56 +1,15 @@
+// variables
 $big_width: 96%;
 $small_width: 92%;
 $big_left: 4%;
 $small_left: 2%;
 
-@keyframes viewUp {
-  0% {
-    height: 15vh;
-    top: 79%;
-    width: $small_width;
-    left: $big_left;
-  }
-  100% {
-    height: 65vh;
-    z-index: 10;
-    top: 15%;
-    width: $big_width;
-    left: $small_left;
-  }
-}
-@keyframes aboveUp {
-  0% {
-    height: 65vh;
-    top: 15%;
-    z-index: 10;
-    width: $big_width;
-    left: $small_left;
-  }
-  100% {
-    height: 15vh;
-    top: 2%;
-    left: $big_left;
-    z-index: 0;
-    width: $small_width;
-  }
-}
-@keyframes belowUp {
-  0% {
-    height: 0vh;
-    top: 92%;
-  }
-  100% {
-    height: 15vh;
-    top: 79%;
-  }
-}
-
+// initial view of cards and all
 .img {
   object-fit: contain;
   width: 96%;
   position: relative;
   left: 2%;
-  height: 40vh;
   background-color: azure;
 }
 .card {
@@ -79,12 +38,74 @@ $small_left: 2%;
   overflow: hidden;
   height: 100%;
 }
+
+//responsiveness
 @media only screen and (max-width: 560px) {
   .frames {
     height: 90%;
   }
 }
 
+// animation
+@keyframes viewUp {
+  0% {
+    height: 15vh;
+    top: 79%;
+    width: $small_width;
+    left: $big_left;
+    .img,
+    .description {
+      height: 0vh;
+      display: none;
+    }
+  }
+  100% {
+    height: 65vh;
+    z-index: 10;
+    top: 15%;
+    width: $big_width;
+    left: $small_left;
+    .img,
+    .description {
+      height: 40vh;
+      display: block;
+    }
+  }
+}
+@keyframes aboveUp {
+  0% {
+    height: 65vh;
+    top: 15%;
+    z-index: 10;
+    width: $big_width;
+    left: $small_left;
+    .description {
+      height: 40vh;
+    }
+  }
+  100% {
+    height: 15vh;
+    top: 2%;
+    left: $big_left;
+    z-index: 0;
+    width: $small_width;
+    .description {
+      display: none;
+    }
+  }
+}
+@keyframes belowUp {
+  0% {
+    height: 0vh;
+    top: 92%;
+  }
+  100% {
+    height: 15vh;
+    top: 79%;
+  }
+}
+
+// cards state
 .card.view {
   display: block;
   animation: viewUp 1s ease forwards;
@@ -95,20 +116,12 @@ $small_left: 2%;
   display: block;
   z-index: 5;
   animation: aboveUp 1s ease forwards;
-  .img,
-  .description {
-    display: none;
-  }
 }
 .card.below {
   width: $small_width;
   left: $big_left;
   display: block;
   animation: belowUp 1s ease forwards;
-  .img,
-  .description {
-    display: none;
-  }
   .name {
     margin-top: 1px;
   }
