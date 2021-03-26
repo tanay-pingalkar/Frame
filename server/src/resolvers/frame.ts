@@ -5,7 +5,7 @@ import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import { Frame } from "../entities/frame";
 import { Users } from "../entities/users";
 import { create_UUID } from "../utils/uuid";
-import { write } from "src/utils/imageWrite";
+import { write } from "../utils/imageWrite";
 
 //resolver
 @Resolver()

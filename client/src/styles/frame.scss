@@ -47,17 +47,13 @@ $small_left: 2%;
 }
 
 // animation
+// up animation
 @keyframes viewUp {
   0% {
     height: 15vh;
     top: 79%;
     width: $small_width;
     left: $big_left;
-    .img,
-    .description {
-      height: 0vh;
-      display: none;
-    }
   }
   100% {
     height: 65vh;
@@ -65,11 +61,6 @@ $small_left: 2%;
     top: 15%;
     width: $big_width;
     left: $small_left;
-    .img,
-    .description {
-      height: 40vh;
-      display: block;
-    }
   }
 }
 @keyframes aboveUp {
@@ -79,9 +70,6 @@ $small_left: 2%;
     z-index: 10;
     width: $big_width;
     left: $small_left;
-    .description {
-      height: 40vh;
-    }
   }
   100% {
     height: 15vh;
@@ -89,9 +77,6 @@ $small_left: 2%;
     left: $big_left;
     z-index: 0;
     width: $small_width;
-    .description {
-      display: none;
-    }
   }
 }
 @keyframes belowUp {
@@ -105,24 +90,90 @@ $small_left: 2%;
   }
 }
 
+// down animation
+// animation
+@keyframes viewDown {
+  0% {
+    height: 65vh;
+    z-index: 10;
+    top: 15%;
+    width: $big_width;
+    left: $small_left;
+  }
+  100% {
+    height: 15vh;
+    top: 79%;
+    width: $small_width;
+    left: $big_left;
+    z-index: 0;
+  }
+}
+@keyframes aboveDown {
+  0% {
+    height: 15vh;
+    top: 2%;
+    left: $big_left;
+    z-index: 0;
+    width: $small_width;
+    .description {
+      display: none;
+    }
+  }
+  100% {
+    height: 65vh;
+    top: 15%;
+    z-index: 10;
+    width: $big_width;
+    left: $small_left;
+    .description {
+      height: 40vh;
+    }
+  }
+}
+@keyframes belowDown {
+  0% {
+    height: 15vh;
+    top: 79%;
+  }
+  100% {
+    height: 0vh;
+    top: 92%;
+  }
+}
+
 // cards state
 .card.view {
   display: block;
-  animation: viewUp 1s ease forwards;
   width: 96%;
   z-index: 10;
 }
 .card.above {
   display: block;
-  z-index: 5;
-  animation: aboveUp 1s ease forwards;
+  z-index: 0;
 }
 .card.below {
   width: $small_width;
   left: $big_left;
   display: block;
-  animation: belowUp 1s ease forwards;
+  z-index: 0;
   .name {
     margin-top: 1px;
   }
+}
+@keyframes upcomingAboveAnime {
+  0% {
+    height: 0vh;
+    width: 90%;
+    left: 5%;
+  }
+  100% {
+    height: 15vh;
+    width: $small_width;
+    left: $big_left;
+  }
+}
+.upcomingAbove {
+  display: block;
+  top: 2%;
+  animation: upcomingAboveAnime 1s ease forwards;
 }

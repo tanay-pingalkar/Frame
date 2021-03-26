@@ -61,7 +61,22 @@
   margin-top: 8px;
   border: none;
 }
+.login {
+  padding: 7px;
+  width: 91%;
+  left: 0.5%;
+  position: absolute;
+  background-color: $green;
+  border-radius: 20px;
+  font-size: 20px;
+  text-align: center;
+  bottom: 1%;
+}
 
+.login:hover {
+  background-color: $darkgreen;
+  box-shadow: $shadow;
+}
 @media only screen and (max-width: 560px) {
   .nav {
     position: absolute;

@@ -47,11 +47,9 @@ export class User {
   @Mutation(() => tokenResponse)
   async login(@Arg("userInfo") userInfo: loginInput): Promise<tokenResponse> {
     let user: Users;
-    if (userInfo.nameOrEmail.length <= 3 || userInfo.password.length <= 3) {
-      return {
-        ErrorMsg: "name or email or password must be greater than 3",
-      };
-    }
+
+    /* if given string is email then it will find user in database for email 
+    or it will find using name, validateEmail is a regex function in utils */
     if (ValidateEmail(userInfo.nameOrEmail)) {
       user = await Users.findOne({ email: userInfo.nameOrEmail });
     } else {
@@ -62,6 +60,9 @@ export class User {
         ErrorMsg: "user does not exist",
       };
     }
+
+    /* checkfor if the user password matches the hashed password 
+    stored in database and if it maches, then it will return a jwt-token */
     const isValidate = await argon2.verify(user.password, userInfo.password);
     if (isValidate) {
       const token = jwtgen(user.id);
@@ -74,6 +75,7 @@ export class User {
       };
     }
   }
+
   @Query(() => userResponse)
   async auth(@Arg("token") token: string): Promise<userResponse> {
     let verified: any;
