@@ -1,6 +1,6 @@
-import React, { Children, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useGetFrames } from "../utils/useGetFrame";
-import { frame, frames } from "../utils/types";
+import { frame } from "../utils/types";
 import Frame from "./frame";
 import "../styles/frame.scss";
 
