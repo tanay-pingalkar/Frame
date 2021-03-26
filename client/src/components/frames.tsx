@@ -18,11 +18,7 @@ const Frames = () => {
   return (
     <div
       className="frames"
-      onTouchMove={() => {
-        console.log("lol");
-      }}
       onWheel={(e) => {
-        console.log(even % 2 === 0, even);
         if (even % 3 === 0) {
           if (e.deltaY < 0) {
             if (frames.length !== 0 && i > 0) {
