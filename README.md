@@ -15,5 +15,5 @@ have node, postgresql installed.
 #### wow you are good to go!
 ## contribution guide
 make sure to create issue before adding new feature to Frame and make sure to clear all unused consoles and to resolve all typescript errors. 
-the design idea is like https://www.figma.com/file/mZmE4N7OXK2Te4TWDAeCNV/Untitled?node-id=0%3A1
+the design idea is like [FIGMA-design link](https://www.figma.com/file/mZmE4N7OXK2Te4TWDAeCNV/Untitled?node-id=0%3A1)
 Know more about what stack frame is using on [STACK.md](https://github.com/tanay-pingalkar/Frame/blob/main/STACK.md)
