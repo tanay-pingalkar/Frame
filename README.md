@@ -12,7 +12,7 @@ have node, postgresql installed.
 - create .env file under .env.example and fill all variables like .env.example.
 - run `yarn` to install all dependencies
 - run `yarn start`, this will start client and server concurrently
-for full developement experience visit 
+### for full developement experience visit  [FULLSETUP.md](https://www.figma.com/file/mZmE4N7OXK2Te4TWDAeCNV/Untitled?node-id=0%3A1)
 #### wow you are good to go!
 
 ## contribution guide
