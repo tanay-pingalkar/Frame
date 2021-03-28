@@ -70,7 +70,7 @@ export class Frames {
   async getFrames(@Arg("offset") offset: number): Promise<Frame[]> {
     const framess: Frame[] = await Frame.createQueryBuilder()
       .limit(8)
-      .offset(offset * 8)
+      .offset(offset * 5)
       .orderBy("Frame.id", "DESC")
       .leftJoinAndSelect("Frame.user", "users")
       .getMany();

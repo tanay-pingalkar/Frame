@@ -7,6 +7,7 @@ import "../styles/frame.scss";
 const Frames = () => {
   const [offset, setOffset] = useState(0);
   const frames = useGetFrames(offset);
+
   const [i, seti] = useState(0);
   let even: number = 1;
   useEffect(() => {
@@ -14,7 +15,7 @@ const Frames = () => {
     up(i);
     seti(i + 1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [frames]);
+  }, [frames, ""]);
   return (
     <div
       className="frames"
@@ -30,12 +31,15 @@ const Frames = () => {
             if (frames.length !== 0 && frames.length - 1 !== i) {
               reset();
               up(i);
-              if (i === 8 * offset + 1) {
-                setOffset(offset + 1);
-              }
+
               seti(i + 1);
             }
           }
+        }
+        console.log(i, offset * 5);
+        if (i === 5 * offset && e.deltaY < 0) {
+          console.log("lol");
+          setOffset(offset + 1);
         }
         even = even + 1;
       }}
