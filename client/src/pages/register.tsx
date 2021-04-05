@@ -23,19 +23,18 @@ const Register = () => {
   const handleGoogle = async (googleData: any) => {
     console.log(googleData);
     let token: tokenData = {};
-    // store returned user
     try {
       token = await client.request<tokenData>(GOOGLE_AUTH, {
         token: googleData.tokenId,
       });
       console.log(token);
-      if (token.googleAuth!.ErrorMsg)
-        seterror("*" + token.googleAuth!.ErrorMsg);
+      if (token.googleLogin!.ErrorMsg)
+        seterror("*" + token.googleLogin!.ErrorMsg);
     } catch (error) {
       console.log(error);
     }
-    if (token.googleAuth!.user) {
-      localStorage.setItem("TOKEN_GOOGLE", googleData.tokenId);
+    if (token.googleLogin!.token) {
+      localStorage.setItem("TOKEN", token.googleLogin!.token);
       setredirect(<Redirect to="/"></Redirect>);
     }
   };

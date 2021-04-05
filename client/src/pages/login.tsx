@@ -21,7 +21,6 @@ const Login = () => {
   const [redirect, setredirect] = useState(<span></span>);
 
   const handleGoogle = async (googleData: any) => {
-    console.log(googleData);
     // store returned user somehow
     let token: tokenData = {};
     try {
@@ -29,14 +28,14 @@ const Login = () => {
         token: googleData.tokenId,
       });
       console.log(token);
-      if (token.googleAuth!.ErrorMsg)
-        seterror("*" + token.googleAuth!.ErrorMsg);
+      if (token.googleLogin!.ErrorMsg)
+        seterror("*" + token.googleLogin!.ErrorMsg);
     } catch (error) {
       console.log(error);
     }
     console.log(token);
-    if (token.googleAuth!.user) {
-      localStorage.setItem("TOKEN_GOOGLE", googleData.tokenId);
+    if (token.googleLogin!.token) {
+      localStorage.setItem("TOKEN", token.googleLogin!.token);
       setredirect(<Redirect to="/"></Redirect>);
     }
   };

@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import Box from "../components/box";
 import { setAuth } from "../redux/actions/setUser";
 import "../styles/global.scss";
+import dotenv from "dotenv";
+dotenv.config();
 
 const App = () => {
   const isAuth = useSelector((state: any) => state.isAuth);

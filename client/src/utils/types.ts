@@ -1,10 +1,7 @@
 export interface tokenData {
   register?: subTokenData;
   login?: subTokenData;
-  googleAuth?: {
-    ErrorMsg: string | null;
-    user: user;
-  };
+  googleLogin?: subTokenData;
 }
 export interface authData {
   auth?: {

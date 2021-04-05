@@ -6,9 +6,9 @@ import { input, loginInput } from "../utils/input";
 import { tokenResponse, userResponse } from "../utils/response";
 import { ValidateEmail } from "../utils/validateEmail";
 import { jwtgen } from "../utils/jwt";
-import jwt from "jsonwebtoken";
 import { OAuth2Client } from "google-auth-library";
 import dotenv from "dotenv";
+import jwt from "jsonwebtoken";
 
 dotenv.config({ path: __dirname + "/../../.env" });
 const client = new OAuth2Client(process.env.REACT_APP_SECRET);
@@ -86,7 +86,7 @@ export class User {
   async auth(@Arg("token") token: string): Promise<userResponse> {
     let verified: any;
     try {
-      verified = jwt.verify(token, "thisIsSecret");
+      verified = jwt.verify(token, process.env.JWT_SECRET);
     } catch (err) {
       return {
         ErrorMsg: "token not valid",
@@ -97,28 +97,28 @@ export class User {
       user: user,
     };
   }
-  @Mutation(() => userResponse)
-  async googleAuth(@Arg("token") token: string): Promise<userResponse> {
+
+  // google login
+  @Mutation(() => tokenResponse)
+  async googleLogin(@Arg("token") token: string): Promise<tokenResponse> {
     const ticket = await client.verifyIdToken({
       idToken: token,
       audience: process.env.REACT_APP_SECRET,
     });
-    console.log(ticket.getPayload());
     const { name, email } = ticket.getPayload();
     const user = await Users.findOne({ email: email });
-    console.log(user);
     if (user) {
       if (user.password != "google") {
         return {
           ErrorMsg: "you need to login to this accout manually",
         };
       } else {
+        const jwt_token = jwtgen(user.id);
         return {
-          user: user,
+          token: jwt_token,
         };
       }
     }
-
     let new_user: Users;
     try {
       new_user = Users.create({
@@ -130,10 +130,9 @@ export class User {
     } catch (er) {
       console.log(er);
     }
-
-    console.log(new_user, "lol");
+    const jwt_token = jwtgen(new_user.id);
     return {
-      user: new_user,
+      token: jwt_token,
     };
   }
 }
