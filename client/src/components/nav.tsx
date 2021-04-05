@@ -3,13 +3,11 @@ import Bell from "../svg/bell";
 import Home from "../svg/home";
 import Search from "../svg/search";
 import logo from "../media/Wallpaper-Malavida-Green-Top-Image.jpg";
-import { useDispatch, useSelector } from "react-redux";
-import { setWhere } from "../redux/actions/setWhere";
+import { useSelector } from "react-redux";
 import { useState } from "react";
 import { Redirect } from "react-router-dom";
 
 const Nav = () => {
-  const dispatch = useDispatch();
   const [redirect, setredirect] = useState(<span></span>);
   const auth: boolean = useSelector((state: any) => state.isAuth);
   return (
@@ -32,7 +30,10 @@ const Nav = () => {
             <Home></Home>
             <Bell></Bell>
           </div>
-          <button className="add" onClick={() => dispatch(setWhere("upload"))}>
+          <button
+            className="add"
+            onClick={() => setredirect(<Redirect to="/app/upload"></Redirect>)}
+          >
             +
           </button>
         </div>

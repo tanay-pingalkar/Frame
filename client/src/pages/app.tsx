@@ -1,9 +1,13 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Box from "../components/box";
 import { setAuth } from "../redux/actions/setUser";
 import "../styles/global.scss";
 import dotenv from "dotenv";
+import Nav from "../components/nav";
+import Frames from "../components/frames";
+import Upload from "../components/upload";
+import "../styles/feed.scss";
+import { Route, Switch } from "react-router";
 dotenv.config();
 
 const App = () => {
@@ -17,7 +21,15 @@ const App = () => {
   console.log(isAuth, userInfo);
   return (
     <div className="full-box">
-      <Box></Box>
+      <div className="flex">
+        <div className="feed">
+          <Switch>
+            <Route path="/app/home" component={Frames}></Route>
+            <Route path="/app/upload" component={Upload}></Route>
+          </Switch>
+        </div>
+        <Nav></Nav>
+      </div>
     </div>
   );
 };

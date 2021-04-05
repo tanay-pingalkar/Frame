@@ -46,3 +46,6 @@ export type frames = Array<frame>;
 export interface getFramesType {
   getFrames: frames;
 }
+
+export type setStateString = (value: React.SetStateAction<string>) => void;
+export type setStateJsx = (value: React.SetStateAction<boolean>) => void;

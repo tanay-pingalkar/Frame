@@ -1,8 +1,7 @@
-import { useDispatch } from "react-redux";
-import { setWhere } from "../redux/actions/setWhere";
+import { useHistory } from "react-router";
 
 const Home = () => {
-  const dispatch = useDispatch();
+  const history = useHistory();
   return (
     <svg
       width="27"
@@ -11,7 +10,7 @@ const Home = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       onClick={() => {
-        dispatch(setWhere("home"));
+        history.push("/app/home");
       }}
     >
       <g clip-path="url(#clip0)">

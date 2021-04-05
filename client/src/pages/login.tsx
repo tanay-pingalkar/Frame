@@ -10,7 +10,7 @@ import { tokenData } from "../utils/types";
 import GoogleLogin from "react-google-login";
 import Google from "../svg/google";
 import dotenv from "dotenv";
-import { GOOGLE_AUTH } from "../graphql/mutations/googleAuth";
+import { handleGoogle } from "../utils/googleLogin";
 dotenv.config();
 
 const Login = () => {
@@ -18,27 +18,7 @@ const Login = () => {
   const [password, setpassword] = useState("");
   const [error, seterror] = useState("");
   const [isLoading, setLoading] = useState(false);
-  const [redirect, setredirect] = useState(<span></span>);
-
-  const handleGoogle = async (googleData: any) => {
-    // store returned user somehow
-    let token: tokenData = {};
-    try {
-      token = await client.request<tokenData>(GOOGLE_AUTH, {
-        token: googleData.tokenId,
-      });
-      console.log(token);
-      if (token.googleLogin!.ErrorMsg)
-        seterror("*" + token.googleLogin!.ErrorMsg);
-    } catch (error) {
-      console.log(error);
-    }
-    console.log(token);
-    if (token.googleLogin!.token) {
-      localStorage.setItem("TOKEN", token.googleLogin!.token);
-      setredirect(<Redirect to="/"></Redirect>);
-    }
-  };
+  const [redirect, setredirect] = useState(false);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -57,12 +37,12 @@ const Login = () => {
     setLoading(false);
     if (token.login!.token) {
       localStorage.setItem("TOKEN", token.login!.token);
-      setredirect(<Redirect to="/"></Redirect>);
+      setredirect(true);
     }
   };
   return (
     <LoginWrapper>
-      {redirect}
+      {redirect ? <Redirect to="/app/frames"></Redirect> : <></>}
       <form onSubmit={(e) => handleSubmit(e)}>
         <p className="error">{error}</p>
         <input
@@ -91,8 +71,8 @@ const Login = () => {
         </button>
         <GoogleLogin
           clientId={process.env.REACT_APP_SECRET!}
-          onSuccess={handleGoogle}
-          onFailure={handleGoogle}
+          onSuccess={(data) => handleGoogle(data, seterror, setredirect)}
+          onFailure={() => seterror("* an unusual error in google is there")}
           cookiePolicy={"single_host_origin"}
           render={(renderProps) => (
             <button onClick={renderProps.onClick} className="google">

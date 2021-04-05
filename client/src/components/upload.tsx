@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { client } from "../graphql/client";
 import { ADD_FRAME } from "../graphql/mutations/addFrame";
 import UploadSvg from "../svg/upload";
 import "../styles/upload.scss";
 import ReactLoading from "react-loading";
-import { setWhere } from "../redux/actions/setWhere";
+import { useHistory } from "react-router";
 
 const Upload = () => {
   const [title, setTitle] = useState("");
@@ -14,8 +14,7 @@ const Upload = () => {
   const [base64, setBase64] = useState<string | ArrayBuffer | null>("");
   const userInfo = useSelector((states: any) => states.userInfo);
   const [isLoading, setLoading] = useState(false);
-  const dispatch = useDispatch();
-
+  const history = useHistory();
   const handleSubmit = async () => {
     if (!img || title === "") {
       alert("fill the form");
@@ -31,7 +30,7 @@ const Upload = () => {
       });
       alert(res.addFrame.msg);
       if (res.addFrame.msg === "success") {
-        dispatch(setWhere("home"));
+        history.push("/app/home");
       }
     } catch (err) {
       setLoading(false);
