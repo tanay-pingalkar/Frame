@@ -17,7 +17,7 @@ export class input {
 @InputType()
 export class loginInput {
   @Field(() => String)
-  nameOrEmail: string;
+  email: string;
 
   @Field(() => String)
   password: string;

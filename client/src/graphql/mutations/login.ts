@@ -1,8 +1,8 @@
 import { gql } from "graphql-request";
 
 export const LOGIN = gql`
-  mutation login($nameOrEmail: String!, $password: String!) {
-    login(userInfo: { nameOrEmail: $nameOrEmail, password: $password }) {
+  mutation login($email: String!, $password: String!) {
+    login(userInfo: { email: $email, password: $password }) {
       ErrorMsg
       token
     }

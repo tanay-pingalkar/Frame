@@ -7,6 +7,10 @@ import { client } from "../graphql/client";
 import { REGISTER } from "../graphql/mutations/register";
 import { Redirect } from "react-router-dom";
 import { tokenData } from "../utils/types";
+import GoogleLogin from "react-google-login";
+import Google from "../svg/google";
+import { GOOGLE_AUTH } from "../graphql/mutations/googleAuth";
+require("dotenv").config();
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -16,6 +20,25 @@ const Register = () => {
   const [isLoading, setLoading] = useState(false);
   const [redirect, setredirect] = useState(<span></span>);
 
+  const handleGoogle = async (googleData: any) => {
+    console.log(googleData);
+    let token: tokenData = {};
+    // store returned user
+    try {
+      token = await client.request<tokenData>(GOOGLE_AUTH, {
+        token: googleData.tokenId,
+      });
+      console.log(token);
+      if (token.googleAuth!.ErrorMsg)
+        seterror("*" + token.googleAuth!.ErrorMsg);
+    } catch (error) {
+      console.log(error);
+    }
+    if (token.googleAuth!.user) {
+      localStorage.setItem("TOKEN_GOOGLE", googleData.tokenId);
+      setredirect(<Redirect to="/"></Redirect>);
+    }
+  };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -57,7 +80,7 @@ const Register = () => {
           placeholder="password"
           onChange={(e) => setpassword(e.target.value)}
         ></input>
-        <button type="submit">
+        <button type="submit" className="normal">
           {isLoading ? (
             <ReactLoading
               type={"bars"}
@@ -70,6 +93,18 @@ const Register = () => {
             <span>Register</span>
           )}
         </button>
+        <GoogleLogin
+          clientId={process.env.REACT_APP_SECRET!}
+          onSuccess={handleGoogle}
+          onFailure={handleGoogle}
+          cookiePolicy={"single_host_origin"}
+          render={(renderProps) => (
+            <button onClick={renderProps.onClick} className="google">
+              <Google></Google>
+              <span>Login with google</span>
+            </button>
+          )}
+        />
         <p>
           if you already have account? <a href="/login">Log in</a> please
         </p>

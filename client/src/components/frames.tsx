@@ -31,7 +31,6 @@ const Frames = () => {
             if (frames.length !== 0 && frames.length - 1 !== i) {
               reset();
               up(i);
-
               seti(i + 1);
             }
           }

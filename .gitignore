@@ -3,7 +3,6 @@ server/node_modules
 server/dist
 .env
 client/yarn-error.log
-
 server/yarn.lock
 client/yarn.lock
 server/images/*.jpg

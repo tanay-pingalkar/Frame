@@ -4,14 +4,14 @@
   "description": "frame your art, diys and memes..",
   "repository": "https://github.com/tanay-pingalkar/Frame.git",
   "author": "tanay-pingalkar <tpingalkar@gmail.com>",
-  "license": "GNU GENERAL PUBLIC LICENSE",
+  "license": "MIT",
   "devDependencies": {
     "concurrently": "^6.0.0",
     "prettier": "2.2.1"
   },
   "scripts": {
     "format": "npx prettier --write .",
-    "install": "cd server && yarn && cd .. && cd client && yarn ",
+    "install": "cd server && yarn && cd .. && cd client && yarn && cd ..",
     "start":"concurrently \"cd server && yarn start\" \"cd client && yarn start\""
   }
 }

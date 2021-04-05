@@ -7,6 +7,11 @@ import { tokenResponse, userResponse } from "../utils/response";
 import { ValidateEmail } from "../utils/validateEmail";
 import { jwtgen } from "../utils/jwt";
 import jwt from "jsonwebtoken";
+import { OAuth2Client } from "google-auth-library";
+import dotenv from "dotenv";
+
+dotenv.config({ path: __dirname + "/../../.env" });
+const client = new OAuth2Client(process.env.REACT_APP_SECRET);
 
 //resolver
 @Resolver()
@@ -50,11 +55,7 @@ export class User {
 
     /* if given string is email then it will find user in database for email 
     or it will find using name, validateEmail is a regex function in utils */
-    if (ValidateEmail(userInfo.nameOrEmail)) {
-      user = await Users.findOne({ email: userInfo.nameOrEmail });
-    } else {
-      user = await Users.findOne({ name: userInfo.nameOrEmail });
-    }
+    user = await Users.findOne({ email: userInfo.email });
     if (!user) {
       return {
         ErrorMsg: "user does not exist",
@@ -63,6 +64,11 @@ export class User {
 
     /* checkfor if the user password matches the hashed password 
     stored in database and if it maches, then it will return a jwt-token */
+    if (user.password === "google") {
+      return {
+        ErrorMsg: "this accout can be only logged in using google",
+      };
+    }
     const isValidate = await argon2.verify(user.password, userInfo.password);
     if (isValidate) {
       const token = jwtgen(user.id);
@@ -89,6 +95,45 @@ export class User {
     const user = await Users.findOne(verified.user!);
     return {
       user: user,
+    };
+  }
+  @Mutation(() => userResponse)
+  async googleAuth(@Arg("token") token: string): Promise<userResponse> {
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: process.env.REACT_APP_SECRET,
+    });
+    console.log(ticket.getPayload());
+    const { name, email } = ticket.getPayload();
+    const user = await Users.findOne({ email: email });
+    console.log(user);
+    if (user) {
+      if (user.password != "google") {
+        return {
+          ErrorMsg: "you need to login to this accout manually",
+        };
+      } else {
+        return {
+          user: user,
+        };
+      }
+    }
+
+    let new_user: Users;
+    try {
+      new_user = Users.create({
+        email: email,
+        name: name,
+        password: "google",
+      });
+      await new_user.save();
+    } catch (er) {
+      console.log(er);
+    }
+
+    console.log(new_user, "lol");
+    return {
+      user: new_user,
     };
   }
 }

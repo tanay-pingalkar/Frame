@@ -27,11 +27,11 @@ export class Users extends BaseEntity {
 
   @Field(() => String)
   @Column({ unique: true })
-  name: string;
+  email: string;
 
   @Field(() => String)
-  @Column({ unique: true })
-  email: string;
+  @Column()
+  name: string;
 
   @Field(() => Frame)
   @OneToMany(() => Frame, (frames) => frames.user)

@@ -11,7 +11,8 @@ form {
     padding: 3px;
     text-align: center;
   }
-  button {
+  .normal,
+  .google {
     width: 92%;
     padding: 3px;
     margin: 10px;
@@ -20,6 +21,17 @@ form {
     border: 2px solid $green;
     border-radius: $radius;
     background-color: $green;
+  }
+  .google {
+    background-color: #abbb2044;
+    border: 2px solid $green;
+  }
+  .google span {
+    margin-left: 22px;
+  }
+  .google-icon {
+    position: absolute;
+    margin-left: -5px;
   }
   p {
     width: 92%;
