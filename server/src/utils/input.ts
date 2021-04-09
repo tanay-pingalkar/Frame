@@ -1,5 +1,5 @@
 import { GraphQLUpload } from "apollo-server";
-import { InputType, Field } from "type-graphql";
+import { InputType, Field, Int } from "type-graphql";
 import { Upload } from "./types";
 
 @InputType()
@@ -21,6 +21,15 @@ export class loginInput {
 
   @Field(() => String)
   password: string;
+}
+
+@InputType()
+export class ids_input {
+  @Field(() => Int)
+  postId: number;
+
+  @Field(() => Int)
+  userId: number;
 }
 
 @InputType()

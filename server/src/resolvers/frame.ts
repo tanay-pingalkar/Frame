@@ -1,11 +1,12 @@
 //import
-import { farmeInfo } from "../utils/input";
-import { addFr } from "../utils/response";
+import { farmeInfo, ids_input } from "../utils/input";
+import { addFr, likeRes } from "../utils/response";
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import { Frame } from "../entities/frame";
 import { Users } from "../entities/users";
 import { create_UUID } from "../utils/uuid";
 import { write } from "../utils/imageWrite";
+import { Like } from "../entities/likes";
 
 //resolver
 @Resolver()
@@ -52,6 +53,7 @@ export class Frames {
       await frame.save();
       await user.save();
       frame = await Frame.findOne(frame.id, { relations: ["user"] });
+      console.log(frame);
     } catch (err) {
       // if any thing goes wrong it will return "an unusual error"
       return {
@@ -75,5 +77,53 @@ export class Frames {
       .leftJoinAndSelect("Frame.user", "users")
       .getMany();
     return framess;
+  }
+
+  @Mutation(() => likeRes)
+  async like(@Arg("ids") ids: ids_input): Promise<likeRes> {
+    const { postId, userId } = ids;
+    try {
+      const post = await Frame.findOne(postId, { relations: ["likes"] });
+      const user = await Users.findOne(userId, { relations: ["likes"] });
+      const likeMan = await Like.createQueryBuilder()
+        .where("Like.giverId = :giverId", { giverId: userId })
+        .andWhere("Like.takerId = :takerId", { takerId: postId })
+        .select("*")
+        .execute();
+      if (likeMan.length != 0) {
+        console.log(likeMan);
+        return {
+          isOk: false,
+          errorMsg: "you have like the post",
+        };
+      }
+      if (!post || !user) {
+        return {
+          isOk: false,
+          errorMsg: "this post or user wont exist",
+        };
+      }
+
+      const like = Like.create();
+      user.likes.unshift(like);
+      post.likes.unshift(like);
+      await like.save();
+      await user.save();
+      await post.save();
+
+      console.log(
+        await Frame.findOne(postId, { relations: ["likes"] }),
+        await Users.findOne(userId, { relations: ["likes"] })
+      );
+    } catch (err) {
+      console.log(err);
+      return {
+        isOk: false,
+        errorMsg: "un usual error",
+      };
+    }
+    return {
+      isOk: true,
+    };
   }
 }

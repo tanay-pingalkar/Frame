@@ -9,6 +9,7 @@ import { Frames } from "./resolvers/frame";
 import { Users } from "./entities/users";
 import { Frame } from "./entities/frame";
 import express from "express";
+import { Like } from "./entities/likes";
 dotenv.config({ path: __dirname + "/../../.env" });
 
 const app = express();
@@ -19,7 +20,7 @@ async function main() {
     username: process.env.NAME,
     password: process.env.PASSWORD,
     database: process.env.DATABASE,
-    entities: [Users, Frame],
+    entities: [Users, Frame, Like],
     synchronize: true,
   });
   const schema = await buildSchema({
@@ -34,7 +35,7 @@ async function main() {
     },
   });
   app.use(express.static(__dirname + "/../images"));
-  await app.listen(PORT, () => {
+  app.listen(PORT, () => {
     console.log("Server has started!");
   });
 }

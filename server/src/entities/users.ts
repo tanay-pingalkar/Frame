@@ -9,6 +9,7 @@ import {
   OneToMany,
 } from "typeorm";
 import { Frame } from "./frame";
+import { Like } from "./likes";
 
 @Entity()
 @ObjectType()
@@ -36,6 +37,10 @@ export class Users extends BaseEntity {
   @Field(() => Frame)
   @OneToMany(() => Frame, (frames) => frames.user)
   frames: Frame[];
+
+  @Field(() => Like)
+  @OneToMany(() => Like, (likes) => likes.giver)
+  likes: Like[];
 
   @Field(() => String)
   @Column()

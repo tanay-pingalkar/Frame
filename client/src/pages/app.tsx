@@ -5,7 +5,7 @@ import "../styles/global.scss";
 import dotenv from "dotenv";
 import Nav from "../components/nav";
 import Frames from "../components/frames";
-import Upload from "../components/upload";
+import Upload from "./upload";
 import "../styles/feed.scss";
 import { Route, Switch } from "react-router";
 dotenv.config();

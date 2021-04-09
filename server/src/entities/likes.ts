@@ -1,20 +1,18 @@
 import { ObjectType, Field, ID } from "type-graphql";
 import {
   Entity,
-  Column,
   CreateDateColumn,
-  UpdateDateColumn,
   BaseEntity,
   PrimaryGeneratedColumn,
   ManyToOne,
-  OneToMany,
+  UpdateDateColumn,
 } from "typeorm";
-import { Like } from "./likes";
+import { Frame } from "./frame";
 import { Users } from "./users";
 
 @Entity()
 @ObjectType()
-export class Frame extends BaseEntity {
+export class Like extends BaseEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn()
   id: number;
@@ -29,21 +27,9 @@ export class Frame extends BaseEntity {
 
   @Field(() => Users)
   @ManyToOne(() => Users, (user) => user.frames)
-  user: Users;
+  giver: Users;
 
-  @Field(() => Like)
-  @OneToMany(() => Like, (like) => like.taker)
-  likes: Like[];
-
-  @Field(() => String)
-  @Column()
-  title: string;
-
-  @Field(() => String)
-  @Column()
-  frame: string;
-
-  @Field(() => String)
-  @Column()
-  description: string;
+  @Field(() => Frame)
+  @ManyToOne(() => Frame, (frame) => frame.likes)
+  taker: Frame;
 }

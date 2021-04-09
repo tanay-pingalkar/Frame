@@ -13,7 +13,7 @@
     "prettier": "2.2.1"
   },
   "scripts": {
-    "format": "npx prettier --write .",
+    "format": "npx prettier --write . && npx prettier --check .",
     "install": "cd server && yarn && cd .. && cd client && yarn && cd ..",
     "start": "concurrently \"cd server && yarn start\" \"cd client && yarn start\""
   }

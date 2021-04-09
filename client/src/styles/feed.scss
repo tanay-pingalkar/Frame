@@ -12,7 +12,7 @@
   position: relative;
   height: 100%;
   left: 50%;
-  max-width: 450px;
+  max-width: 700px;
   transform: translate(-50%);
 }
 
@@ -22,5 +22,10 @@
   }
   .feed {
     width: 100%;
+  }
+}
+@media only screen and (max-width: 607px) {
+  .flex {
+    max-width: 500px;
   }
 }

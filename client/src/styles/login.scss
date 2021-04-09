@@ -37,6 +37,7 @@ form {
     width: 92%;
     margin: 10px;
     font-size: 14px;
+    text-align: center;
   }
   .error {
     color: $red;
@@ -47,5 +48,5 @@ input::placeholder {
 }
 
 .loader {
-  margin-left: 48%;
+  margin-left: 72%;
 }

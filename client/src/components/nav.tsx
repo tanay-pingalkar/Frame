@@ -5,19 +5,19 @@ import Search from "../svg/search";
 import logo from "../media/Wallpaper-Malavida-Green-Top-Image.jpg";
 import { useSelector } from "react-redux";
 import { useState } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
+import Add from "../svg/add";
 
 const Nav = () => {
-  const [redirect, setredirect] = useState(<span></span>);
   const auth: boolean = useSelector((state: any) => state.isAuth);
+  const history = useHistory();
   return (
     <>
-      {redirect}
       {!auth ? (
         <p
           className="login"
           onClick={() => {
-            setredirect(<Redirect to="/login"></Redirect>);
+            history.push("/login");
           }}
         >
           Login please
@@ -27,15 +27,18 @@ const Nav = () => {
           <img alt="profile" src={logo} className="profile"></img>
           <div className="toggler">
             <Search></Search>
+            <h2>Search</h2>
+            <br></br>
             <Home></Home>
+            <h2>Home</h2>
+            <br></br>
             <Bell></Bell>
+            <h2>Notification</h2>
           </div>
-          <button
-            className="add"
-            onClick={() => setredirect(<Redirect to="/app/upload"></Redirect>)}
-          >
-            +
-          </button>
+          <div className="add" onClick={() => history.push("/app/upload")}>
+            <Add></Add>
+            <h2>Post frame</h2>
+          </div>
         </div>
       )}
     </>

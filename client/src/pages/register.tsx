@@ -5,7 +5,7 @@ import "../styles/login.scss";
 import ReactLoading from "react-loading";
 import { client } from "../graphql/client";
 import { REGISTER } from "../graphql/mutations/register";
-import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { tokenData } from "../utils/types";
 import GoogleLogin from "react-google-login";
 import Google from "../svg/google";
@@ -18,7 +18,7 @@ const Register = () => {
   const [email, setemail] = useState("");
   const [error, seterror] = useState("");
   const [isLoading, setLoading] = useState(false);
-  const [redirect, setredirect] = useState(false);
+  const history = useHistory();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -39,12 +39,11 @@ const Register = () => {
     setLoading(false);
     if (token.register!.token) {
       localStorage.setItem("TOKEN", token.register!.token);
-      setredirect(true);
+      history.push("/app/home");
     }
   };
   return (
     <LoginWrapper>
-      {redirect ? <Redirect to="/app/frames"></Redirect> : <></>}
       <form onSubmit={(e) => handleSubmit(e)}>
         <p className="error">{error}</p>
         <input
@@ -66,7 +65,7 @@ const Register = () => {
             <ReactLoading
               type={"bars"}
               color={"black"}
-              height={"18px"}
+              height={"20px"}
               width={"20px"}
               className="loader"
             />
@@ -76,7 +75,12 @@ const Register = () => {
         </button>
         <GoogleLogin
           clientId={process.env.REACT_APP_SECRET!}
-          onSuccess={(data) => handleGoogle(data, seterror, setredirect)}
+          onSuccess={(data) => {
+            const isOk = handleGoogle(data, seterror);
+            if (isOk) {
+              history.push("/app/home");
+            }
+          }}
           onFailure={() => seterror("* an unusual error in google is there")}
           cookiePolicy={"single_host_origin"}
           render={(renderProps) => (
@@ -87,7 +91,8 @@ const Register = () => {
           )}
         />
         <p>
-          if you already have account? <a href="/login">Log in</a> please
+          if you already have account? <a href="/login">Log in</a> please or
+          browse <a href="/app/home">anonymously</a>
         </p>
       </form>
     </LoginWrapper>

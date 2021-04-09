@@ -1,46 +1,43 @@
 @import "./global.scss";
+
 .nav {
   position: relative;
-  width: 40px;
+  width: 350px;
   margin-left: 10px;
 }
 .toggler {
+  @include shadow;
   height: 180px;
   width: 100%;
-  border-radius: 60px;
+  border-radius: 30px;
   background-color: $green;
-  margin-top: 5px;
+  margin-top: $x5 + 10;
+  text-align: center;
+  h2 {
+    width: 130px;
+    display: inline-flex;
+    margin-top: 24px;
+    margin-left: $x5;
+  }
   svg {
     transition: 0.1s ease-in-out;
   }
-  :nth-child(1) {
-    margin-top: 30px;
-    margin-left: 8px;
-  }
-  :nth-child(2) {
-    margin-top: 15px;
-    margin-left: 8px;
-  }
-  :nth-child(3) {
-    margin-top: 15px;
-    margin-left: 8px;
-  }
 
   //hovers
-  :nth-child(2):hover {
-    width: 35px;
+  :nth-child(4):hover {
+    width: $x35;
     margin-left: 1px;
-    height: 35px;
+    height: $x35;
   }
   :nth-child(1):hover {
-    width: 35px;
+    width: $x35;
     margin-left: 1px;
-    height: 35px;
+    height: $x35;
   }
-  :nth-child(3):hover {
-    width: 35px;
+  :nth-child(7):hover {
+    width: $x35;
     margin-left: 1px;
-    height: 35px;
+    height: $x35;
   }
 }
 
@@ -50,16 +47,24 @@
   border: 2px solid #000000;
   box-sizing: border-box;
   border-radius: 20px;
-  margin-top: 5px;
+  margin-top: $x5 + 10;
+  @include shadow;
 }
 .add {
-  height: 40px;
   width: 100%;
+  height: 40px;
+  align-items: center;
   background-color: $green;
-  border-radius: 35px;
-  font-size: 36px;
-  margin-top: 8px;
-  border: none;
+  border-radius: $x35;
+  margin-top: $x5 + 10;
+  @include shadow;
+  display: flex;
+  svg {
+    margin-left: 19.5%;
+  }
+  h2 {
+    margin-left: $x5;
+  }
 }
 .login {
   padding: 7px;
@@ -73,10 +78,6 @@
   bottom: 1%;
 }
 
-.login:hover {
-  background-color: $darkgreen;
-  box-shadow: $shadow;
-}
 @media only screen and (max-width: 560px) {
   .nav {
     position: absolute;
@@ -88,8 +89,32 @@
         transform: rotate(-90deg);
       }
     }
-    .add {
-      transform: rotate(-90deg);
+  }
+}
+@media only screen and (max-width: 607px) {
+  .nav {
+    width: 40px;
+  }
+  .toggler {
+    h2 {
+      display: none;
+    }
+    :nth-child(1) {
+      margin-top: 30px;
+      margin-left: 2px;
+    }
+    :nth-child(4) {
+      margin-top: 15px;
+      margin-left: 2px;
+    }
+    :nth-child(7) {
+      margin-top: 15px;
+      margin-left: 2px;
+    }
+  }
+  .add {
+    h2 {
+      display: none;
     }
   }
 }

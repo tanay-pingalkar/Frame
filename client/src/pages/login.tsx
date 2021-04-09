@@ -5,7 +5,7 @@ import { replace } from "../utils/replaceSpace";
 import LoginWrapper from "../components/loginWrapper";
 import "../styles/login.scss";
 import ReactLoading from "react-loading";
-import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { tokenData } from "../utils/types";
 import GoogleLogin from "react-google-login";
 import Google from "../svg/google";
@@ -18,7 +18,8 @@ const Login = () => {
   const [password, setpassword] = useState("");
   const [error, seterror] = useState("");
   const [isLoading, setLoading] = useState(false);
-  const [redirect, setredirect] = useState(false);
+
+  const history = useHistory();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -37,12 +38,11 @@ const Login = () => {
     setLoading(false);
     if (token.login!.token) {
       localStorage.setItem("TOKEN", token.login!.token);
-      setredirect(true);
+      history.push("/app/home");
     }
   };
   return (
     <LoginWrapper>
-      {redirect ? <Redirect to="/app/frames"></Redirect> : <></>}
       <form onSubmit={(e) => handleSubmit(e)}>
         <p className="error">{error}</p>
         <input
@@ -71,7 +71,12 @@ const Login = () => {
         </button>
         <GoogleLogin
           clientId={process.env.REACT_APP_SECRET!}
-          onSuccess={(data) => handleGoogle(data, seterror, setredirect)}
+          onSuccess={(data) => {
+            const isOk = handleGoogle(data, seterror);
+            if (isOk) {
+              history.push("/app/home");
+            }
+          }}
           onFailure={() => seterror("* an unusual error in google is there")}
           cookiePolicy={"single_host_origin"}
           render={(renderProps) => (
@@ -82,7 +87,8 @@ const Login = () => {
           )}
         />
         <p>
-          if you dont have account? <a href="/register">Register</a> please
+          if you dont have account? <a href="/register">Register</a> please or
+          browse <a href="/app/home">anonymously</a>
         </p>
       </form>
     </LoginWrapper>

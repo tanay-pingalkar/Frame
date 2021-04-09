@@ -28,3 +28,12 @@ export class addFr {
   @Field(() => Frame, { nullable: true })
   frame?: Frame;
 }
+
+@ObjectType()
+export class likeRes {
+  @Field(() => Boolean)
+  isOk: boolean;
+
+  @Field(() => String, { nullable: true })
+  errorMsg?: String;
+}

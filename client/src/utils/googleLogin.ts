@@ -1,12 +1,11 @@
 import { client } from "../graphql/client";
 import { GOOGLE_AUTH } from "../graphql/mutations/googleAuth";
-import { setStateJsx, setStateString, tokenData } from "./types";
+import { setStateString, tokenData } from "./types";
 
 export const handleGoogle = async (
   googleData: any,
-  seterror: setStateString,
-  setredirect: setStateJsx
-) => {
+  seterror: setStateString
+): Promise<boolean> => {
   // store returned user somehow
   let token: tokenData = {};
   try {
@@ -14,13 +13,17 @@ export const handleGoogle = async (
       token: googleData.tokenId,
     });
     console.log(token);
-    if (token.googleLogin!.ErrorMsg)
+    if (token.googleLogin!.ErrorMsg) {
       seterror("*" + token.googleLogin!.ErrorMsg);
+      return false;
+    } else if (token.googleLogin!.token) {
+      localStorage.setItem("TOKEN", token.googleLogin!.token);
+      return true;
+    } else {
+      return false;
+    }
   } catch (error) {
     console.log(error);
-  }
-  if (token.googleLogin!.token) {
-    localStorage.setItem("TOKEN", token.googleLogin!.token);
-    setredirect(true);
+    return false;
   }
 };
