@@ -46,3 +46,12 @@ export class farmeInfo {
   @Field(() => String)
   description: string;
 }
+
+@InputType()
+export class getFrameInfo {
+  @Field(() => Number)
+  lastFrameId: number;
+
+  @Field(() => Number)
+  UserId: number;
+}

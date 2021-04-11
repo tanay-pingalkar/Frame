@@ -1,6 +1,6 @@
 //import
-import { farmeInfo, ids_input } from "../utils/input";
-import { addFr, likeRes } from "../utils/response";
+import { farmeInfo, getFrameInfo, ids_input } from "../utils/input";
+import { addFr, getFramesRes, likeRes } from "../utils/response";
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import { Frame } from "../entities/frame";
 import { Users } from "../entities/users";
@@ -61,22 +61,54 @@ export class Frames {
       };
     }
 
-    // if every thing goes well , it will return msg success message and frame...
+    // f every thing goes well , it will return msg success message and frame...
     return {
       msg: "success",
       frame: frame,
     };
   }
 
-  @Query(() => [Frame])
-  async getFrames(@Arg("offset") offset: number): Promise<Frame[]> {
-    const framess: Frame[] = await Frame.createQueryBuilder()
-      .limit(8)
-      .offset(offset * 5)
-      .orderBy("Frame.id", "DESC")
-      .leftJoinAndSelect("Frame.user", "users")
-      .getMany();
-    return framess;
+  @Query(() => [getFramesRes])
+  async getFrames(@Arg("info") info: getFrameInfo): Promise<getFramesRes[]> {
+    try {
+      let framess: Frame[] = [];
+      if (info.lastFrameId === 0) {
+        framess = await Frame.createQueryBuilder()
+          .leftJoinAndSelect("Frame.user", "users")
+          .limit(8)
+          .orderBy("Frame.id", "DESC")
+          .getMany();
+      } else {
+        framess = await Frame.createQueryBuilder()
+          .leftJoinAndSelect("Frame.user", "users")
+          .limit(8)
+          .orderBy("Frame.id", "DESC")
+          .where("Frame.id < :lastId", { lastId: info.lastFrameId })
+          .getMany();
+      }
+
+      console.log(framess);
+      const res: getFramesRes[] = [];
+      for (let frame of framess) {
+        const likeMan = await Like.createQueryBuilder()
+          .where("Like.giverId = :giverId", { giverId: info.UserId })
+          .andWhere("Like.takerId = :takerId", { takerId: frame.id })
+          .select("*")
+          .execute();
+        console.log(likeMan != []);
+        res.push({
+          frame: frame,
+          isLiked: likeMan.length != [],
+        });
+      }
+      return res;
+    } catch {
+      return [
+        {
+          errorMsg: "sorry something is wrong",
+        },
+      ];
+    }
   }
 
   @Mutation(() => likeRes)
@@ -92,14 +124,23 @@ export class Frames {
         .execute();
       if (likeMan.length != 0) {
         console.log(likeMan);
+        try {
+          Like.delete(likeMan[0].id);
+        } catch (err) {
+          console.log(err);
+          return {
+            like: false,
+            errorMsg: "problem in dislike",
+          };
+        }
         return {
-          isOk: false,
-          errorMsg: "you have like the post",
+          like: false,
+          errorMsg: "disliked",
         };
       }
       if (!post || !user) {
         return {
-          isOk: false,
+          like: false,
           errorMsg: "this post or user wont exist",
         };
       }
@@ -110,20 +151,15 @@ export class Frames {
       await like.save();
       await user.save();
       await post.save();
-
-      console.log(
-        await Frame.findOne(postId, { relations: ["likes"] }),
-        await Users.findOne(userId, { relations: ["likes"] })
-      );
     } catch (err) {
       console.log(err);
       return {
-        isOk: false,
+        like: false,
         errorMsg: "un usual error",
       };
     }
     return {
-      isOk: true,
+      like: true,
     };
   }
 }

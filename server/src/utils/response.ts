@@ -32,7 +32,19 @@ export class addFr {
 @ObjectType()
 export class likeRes {
   @Field(() => Boolean)
-  isOk: boolean;
+  like: boolean;
+
+  @Field(() => String, { nullable: true })
+  errorMsg?: String;
+}
+
+@ObjectType()
+export class getFramesRes {
+  @Field(() => Frame, { nullable: true })
+  frame?: Frame;
+
+  @Field(() => Boolean, { nullable: true })
+  isLiked?: boolean;
 
   @Field(() => String, { nullable: true })
   errorMsg?: String;
