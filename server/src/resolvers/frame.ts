@@ -53,7 +53,6 @@ export class Frames {
       await frame.save();
       await user.save();
       frame = await Frame.findOne(frame.id, { relations: ["user"] });
-      console.log(frame);
     } catch (err) {
       // if any thing goes wrong it will return "an unusual error"
       return {
@@ -75,19 +74,21 @@ export class Frames {
       if (info.lastFrameId === 0) {
         framess = await Frame.createQueryBuilder()
           .leftJoinAndSelect("Frame.user", "users")
+          .leftJoinAndSelect("Frame.likes", "Like")
           .limit(8)
           .orderBy("Frame.id", "DESC")
           .getMany();
       } else {
         framess = await Frame.createQueryBuilder()
           .leftJoinAndSelect("Frame.user", "users")
+          .leftJoinAndSelect("Frame.likes", "Like")
           .limit(8)
           .orderBy("Frame.id", "DESC")
           .where("Frame.id < :lastId", { lastId: info.lastFrameId })
           .getMany();
       }
 
-      console.log(framess);
+      console.log(framess[0].likes);
       const res: getFramesRes[] = [];
       for (let frame of framess) {
         const likeMan = await Like.createQueryBuilder()
@@ -95,14 +96,17 @@ export class Frames {
           .andWhere("Like.takerId = :takerId", { takerId: frame.id })
           .select("*")
           .execute();
-        console.log(likeMan != []);
+        let lineNumber: number = 0;
+        if (frame.likes) lineNumber = frame.likes.length;
         res.push({
           frame: frame,
           isLiked: likeMan.length != [],
+          likeNumber: lineNumber,
         });
       }
       return res;
-    } catch {
+    } catch (err) {
+      console.log(err);
       return [
         {
           errorMsg: "sorry something is wrong",
@@ -123,7 +127,6 @@ export class Frames {
         .select("*")
         .execute();
       if (likeMan.length != 0) {
-        console.log(likeMan);
         try {
           Like.delete(likeMan[0].id);
         } catch (err) {

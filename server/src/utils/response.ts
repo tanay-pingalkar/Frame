@@ -46,6 +46,9 @@ export class getFramesRes {
   @Field(() => Boolean, { nullable: true })
   isLiked?: boolean;
 
+  @Field(() => Number, { nullable: true })
+  likeNumber?: number;
+
   @Field(() => String, { nullable: true })
   errorMsg?: String;
 }
