@@ -1,15 +1,12 @@
 import "reflect-metadata";
 import { createConnection } from "typeorm";
 import { ApolloServer } from "apollo-server-express";
-import { buildSchema } from "type-graphql";
-import { hello } from "./resolvers/hello";
-import { User } from "./resolvers/user";
 import dotenv from "dotenv";
-import { Frames } from "./resolvers/frame";
 import { Users } from "./entities/users";
 import { Frame } from "./entities/frame";
 import express from "express";
 import { Like } from "./entities/likes";
+import { createSchema } from "./utils/createSchema";
 dotenv.config({ path: __dirname + "/../../.env" });
 
 const app = express();
@@ -24,9 +21,7 @@ async function main() {
     entities: [Users, Frame, Like],
     synchronize: true,
   });
-  const schema = await buildSchema({
-    resolvers: [hello, User, Frames],
-  });
+  const schema = await createSchema();
   const server = new ApolloServer({ schema });
   server.applyMiddleware({
     app,
