@@ -6,4 +6,7 @@ module.exports = {
   transform: {
     "^.+\\.(ts|tsx)$": "ts-jest",
   },
+  testEnvironment: "node",
+  modulePathIgnorePatterns: ["./dist"],
+  globalTeardown: "./src/utils/teardown.ts",
 };

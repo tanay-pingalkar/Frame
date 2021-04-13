@@ -1,27 +1,16 @@
 import "reflect-metadata";
-import { createConnection } from "typeorm";
 import { ApolloServer } from "apollo-server-express";
-import dotenv from "dotenv";
-import { Users } from "./entities/users";
-import { Frame } from "./entities/frame";
 import express from "express";
-import { Like } from "./entities/likes";
 import { createSchema } from "./utils/createSchema";
-dotenv.config({ path: __dirname + "/../../.env" });
+import { createCon } from "./utils/createCon";
 
 const app = express();
 const PORT = process.env.PORT || 4000;
 
 async function main() {
-  await createConnection({
-    type: "postgres",
-    username: process.env.NAME,
-    password: process.env.PASSWORD,
-    database: process.env.DATABASE,
-    entities: [Users, Frame, Like],
-    synchronize: true,
-  });
+  await createCon();
   const schema = await createSchema();
+  console.log("lol");
   const server = new ApolloServer({ schema });
   server.applyMiddleware({
     app,

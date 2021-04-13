@@ -36,7 +36,6 @@ export class User {
     try {
       userInfo.password = await argon2.hash(userInfo.password);
       const user = await Users.create(userInfo).save();
-      console.log(user);
       const token = jwtgen(user.id);
       return {
         token: token,
