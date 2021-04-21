@@ -10,11 +10,11 @@ export const write = async (
       .createReadStream()
       .pipe(
         createWriteStream(
-          __dirname + `/../../images/${img_uuid + file.filename}`
+          __dirname + `/../../../images/${img_uuid + file.filename}`
         )
       )
       .on("finish", () => console.log("saved"))
-      .on("error", () => console.log("oops"));
+      .on("error", (e) => console.log("oops", e));
     return true;
   } catch (error) {
     console.log(error);

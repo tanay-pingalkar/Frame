@@ -3,11 +3,11 @@ import { useGetFrames } from "../utils/useGetFrame";
 import { frame } from "../utils/types";
 import Frame from "./frame";
 import "../styles/frame.scss";
+import { useSelector } from "react-redux";
 
 const Frames = () => {
-  const [offset, setOffset] = useState(0);
-  const frames = useGetFrames(offset);
-
+  const { id } = useSelector((state: any) => state.userInfo);
+  const frames = useGetFrames(Number(id), 0);
   const [i, seti] = useState(0);
   let even: number = 1;
   useEffect(() => {
@@ -34,11 +34,6 @@ const Frames = () => {
               seti(i + 1);
             }
           }
-        }
-        console.log(i, offset * 5);
-        if (i === 5 * offset && e.deltaY < 0) {
-          console.log("lol");
-          setOffset(offset + 1);
         }
         even = even + 1;
       }}

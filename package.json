@@ -16,8 +16,8 @@
     "format": "npx prettier --write . && npx prettier --check .",
     "install": "cd server && yarn && cd .. && cd client && yarn && cd ..",
     "start": "concurrently \"cd server && yarn start\" \"cd client && yarn start\"",
-    "test:server":"cd server && yarn test",
-    "start:server":"cd server && yarn start",
-    "start:client":"cd client && yarn start"
+    "test:server": "cd server && yarn test",
+    "start:server": "cd server && yarn start",
+    "start:client": "cd client && yarn start"
   }
 }

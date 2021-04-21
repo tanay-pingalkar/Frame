@@ -19,7 +19,7 @@ async function main() {
       credentials: true,
     },
   });
-  app.use(express.static(__dirname + "/../images"));
+  app.use(express.static(__dirname + "/../../images"));
   app.listen(PORT, () => {
     console.log("Server has started!");
   });

@@ -1,13 +1,17 @@
 import { gql } from "graphql-request";
 
 export const GET_FRAMES = gql`
-  query getFrames($offset: Float!) {
-    getFrames(offset: $offset) {
-      title
-      frame
-      description
-      user {
-        name
+  query getFrames($userId: Float!, $lastFrameId: Float!) {
+    getFrames(info: { UserId: $userId, lastFrameId: $lastFrameId }) {
+      likeNumber
+      isLiked
+      frame {
+        title
+        frame
+        description
+        user {
+          name
+        }
       }
     }
   }
