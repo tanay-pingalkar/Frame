@@ -7,31 +7,42 @@ import { useSelector } from "react-redux";
 
 const Frames = () => {
   const { id } = useSelector((state: any) => state.userInfo);
-  const frames = useGetFrames(Number(id), 0);
+  const [lastframe, setlastframe] = useState(0);
+  const frames = useGetFrames(Number(id), lastframe);
   const [i, seti] = useState(0);
+  const [noWayBack, setNoWayBack] = useState(0);
   let even: number = 1;
   useEffect(() => {
-    reset();
-    up(i);
-    seti(i + 1);
+    if (frames.length !== 0) {
+      reset();
+      up(i);
+      seti(i + 1);
+      setNoWayBack(noWayBack + 1);
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [frames, ""]);
+  }, [frames]);
+  console.log(frames, i);
   return (
     <div
       className="frames"
       onWheel={(e) => {
-        if (even % 3 === 0) {
+        if (even % 10 === 0) {
           if (e.deltaY < 0) {
-            if (frames.length !== 0 && i > 0) {
+            if (frames.length !== 0 && i > 2) {
               reset();
               down(i);
               seti(i - 1);
             }
           } else {
-            if (frames.length !== 0 && frames.length - 1 !== i) {
+            if (frames.length !== 0 && frames.length - 2 > i) {
               reset();
               up(i);
               seti(i + 1);
+              if (i === noWayBack) setNoWayBack(noWayBack + 1);
+              console.log(noWayBack % 4 === 0, noWayBack);
+              if (noWayBack % 4 === 0)
+                setlastframe(Number(frames[frames.length - 1].frame.id));
             }
           }
         }
@@ -56,6 +67,7 @@ function reset() {
 
 function up(i: number) {
   // selecting elements
+  console.log(document.querySelectorAll(".card"));
   const above = document.querySelectorAll(".card")[i] as HTMLElement;
   const view = document.querySelectorAll(".card")[i + 1] as HTMLElement;
   const below = document.querySelectorAll(".card")[i + 2] as HTMLElement;

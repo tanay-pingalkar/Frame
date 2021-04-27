@@ -42,6 +42,7 @@ export interface frame {
     frame: string;
     description: string;
     user: user;
+    id: string;
   };
 }
 

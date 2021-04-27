@@ -7,18 +7,26 @@ import Nav from "../components/nav";
 import Frames from "../components/frames";
 import Upload from "./upload";
 import "../styles/feed.scss";
-import { Route, Switch } from "react-router";
+import { Route, Switch, useHistory } from "react-router";
 dotenv.config();
 
 const App = () => {
   const isAuth = useSelector((state: any) => state.isAuth);
   const userInfo = useSelector((state: any) => state.userInfo);
+  const history = useHistory();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setAuth);
-  }, [dispatch]);
 
-  console.log(isAuth, userInfo);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    console.log(isAuth, userInfo);
+    if (isAuth === "nolog") history.push("/login");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuth]);
+
   return (
     <div className="full-box">
       <div className="flex">

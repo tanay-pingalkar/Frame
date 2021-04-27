@@ -5,12 +5,13 @@ import { replace } from "../utils/replaceSpace";
 import LoginWrapper from "../components/loginWrapper";
 import "../styles/login.scss";
 import ReactLoading from "react-loading";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { tokenData } from "../utils/types";
 import GoogleLogin from "react-google-login";
 import Google from "../svg/google";
 import dotenv from "dotenv";
 import { handleGoogle } from "../utils/googleLogin";
+import { useDispatch } from "react-redux";
 dotenv.config();
 
 const Login = () => {
@@ -18,7 +19,7 @@ const Login = () => {
   const [password, setpassword] = useState("");
   const [error, seterror] = useState("");
   const [isLoading, setLoading] = useState(false);
-
+  const dispatch = useDispatch();
   const history = useHistory();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -38,6 +39,7 @@ const Login = () => {
     setLoading(false);
     if (token.login!.token) {
       localStorage.setItem("TOKEN", token.login!.token);
+      dispatch({ type: "logging" });
       history.push("/app/home");
     }
   };
@@ -87,8 +89,7 @@ const Login = () => {
           )}
         />
         <p>
-          if you dont have account? <a href="/register">Register</a> please or
-          browse <a href="/app/home">anonymously</a>
+          if you dont have account? <Link to="/register">Register</Link> please!
         </p>
       </form>
     </LoginWrapper>

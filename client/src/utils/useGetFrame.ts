@@ -5,14 +5,16 @@ import { getFramesType, frames } from "./types";
 
 export const useGetFrames = (userId: number, lastFrameId: number) => {
   const [frames, setFrames] = useState<frames>([]);
-  console.log(userId, lastFrameId);
   useEffect(() => {
-    client
-      .request(GET_FRAMES, { userId: userId, lastFrameId: lastFrameId })
-      .then(({ getFrames }: getFramesType) => {
-        setFrames(frames.concat(getFrames));
-      });
+    if (!isNaN(userId)) {
+      client
+        .request(GET_FRAMES, { userId: userId, lastFrameId: lastFrameId })
+        .then(({ getFrames }: getFramesType) => {
+          if (getFrames[0].frame) setFrames(frames.concat(getFrames));
+        });
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lastFrameId]);
+  }, [lastFrameId, userId]);
   return frames;
 };

@@ -1,11 +1,13 @@
 import { userAction } from "../../utils/types";
 
-const isAuth = (state: boolean = false, action: userAction) => {
+const isAuth = (state: string = "logging", action: userAction): string => {
   switch (action.type) {
     case "auth":
-      return true;
+      return "logged";
     case "nope":
-      return false;
+      return "nolog";
+    case "logging":
+      return "logging";
     default:
       return state;
   }

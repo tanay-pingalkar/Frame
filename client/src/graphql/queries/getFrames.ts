@@ -6,6 +6,7 @@ export const GET_FRAMES = gql`
       likeNumber
       isLiked
       frame {
+        id
         title
         frame
         description

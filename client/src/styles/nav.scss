@@ -42,13 +42,27 @@
 }
 
 .profile {
-  height: 40px;
-  width: 40px;
   border: 2px solid #000000;
-  box-sizing: border-box;
-  border-radius: 20px;
+  border-radius: 27px;
   margin-top: $x5 + 10;
   @include shadow;
+  display: flex;
+  height: 40px;
+  background-color: $green;
+  img {
+    height: 42px;
+    width: 42px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    border: 2px solid #000000;
+    margin: -1px -2px;
+  }
+  h2 {
+    width: 83%;
+    margin-left: -15%;
+    text-align: center;
+    margin-top: 4px;
+  }
 }
 .add {
   width: 100%;
@@ -78,7 +92,7 @@
   bottom: 1%;
 }
 
-@media only screen and (max-width: 560px) {
+@media only screen and (max-width: 480px) {
   .nav {
     position: absolute;
     bottom: -117px;
@@ -90,8 +104,12 @@
       }
     }
   }
+  .profile {
+    overflow: hidden;
+    width: 40px;
+  }
 }
-@media only screen and (max-width: 607px) {
+@media only screen and (max-width: 620px) {
   .nav {
     width: 40px;
   }
@@ -116,5 +134,9 @@
     h2 {
       display: none;
     }
+  }
+  .profile {
+    overflow: hidden;
+    width: 40px;
   }
 }

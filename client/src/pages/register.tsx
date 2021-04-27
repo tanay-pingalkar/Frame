@@ -5,11 +5,12 @@ import "../styles/login.scss";
 import ReactLoading from "react-loading";
 import { client } from "../graphql/client";
 import { REGISTER } from "../graphql/mutations/register";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { tokenData } from "../utils/types";
 import GoogleLogin from "react-google-login";
 import Google from "../svg/google";
 import { handleGoogle } from "../utils/googleLogin";
+import { useDispatch } from "react-redux";
 require("dotenv").config();
 
 const Register = () => {
@@ -19,6 +20,7 @@ const Register = () => {
   const [error, seterror] = useState("");
   const [isLoading, setLoading] = useState(false);
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -39,6 +41,7 @@ const Register = () => {
     setLoading(false);
     if (token.register!.token) {
       localStorage.setItem("TOKEN", token.register!.token);
+      dispatch({ type: "logging" });
       history.push("/app/home");
     }
   };
@@ -91,8 +94,7 @@ const Register = () => {
           )}
         />
         <p>
-          if you already have account? <a href="/login">Log in</a> please or
-          browse <a href="/app/home">anonymously</a>
+          if you already have account? <Link to="/login">Log in</Link> please!
         </p>
       </form>
     </LoginWrapper>

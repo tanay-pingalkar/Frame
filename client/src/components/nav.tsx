@@ -4,27 +4,25 @@ import Home from "../svg/home";
 import Search from "../svg/search";
 import logo from "../media/Wallpaper-Malavida-Green-Top-Image.jpg";
 import { useSelector } from "react-redux";
-import { useState } from "react";
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+
 import Add from "../svg/add";
 
 const Nav = () => {
-  const auth: boolean = useSelector((state: any) => state.isAuth);
+  const auth: string = useSelector((state: any) => state.isAuth);
+  const { name } = useSelector((state: any) => state.userInfo);
   const history = useHistory();
   return (
     <>
-      {!auth ? (
-        <p
-          className="login"
-          onClick={() => {
-            history.push("/login");
-          }}
-        >
-          Login please
-        </p>
+      {auth === "loggin" || auth === "nolog" ? (
+        <p className="login">{auth}</p>
       ) : (
         <div className="nav">
-          <img alt="profile" src={logo} className="profile"></img>
+          <div className="profile">
+            <img alt="profile" src={logo}></img>
+            <h2>{name}</h2>
+          </div>
+
           <div className="toggler">
             <Search></Search>
             <h2>Search</h2>
