@@ -3,9 +3,9 @@ import { Users } from "../entities/users";
 import { Like } from "../entities/likes";
 import { Connection, createConnection } from "typeorm";
 import dotenv from "dotenv";
-dotenv.config({ path: __dirname + "/../../../.env" });
 
 export const createCon = async (): Promise<Connection> => {
+  dotenv.config({ path: __dirname + "/../../../.env" });
   return await createConnection({
     type: "postgres",
     username: process.env.NAME,

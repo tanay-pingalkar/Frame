@@ -3,11 +3,13 @@
 .feed {
   background-color: rgb(198, 255, 236);
   height: 100%;
+
   width: 95%;
   position: relative;
   overflow-y: scroll;
 }
 .flex {
+  user-select: none;
   display: flex;
   position: relative;
   height: 100%;

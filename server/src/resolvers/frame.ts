@@ -18,9 +18,9 @@ export class Frames {
     const img_uuid = create_UUID();
 
     // checks for if frameInfo title length is less than 3
-    if (frameInfoo.title.length <= 2) {
+    if (frameInfoo.title.length <= 2 || frameInfoo.title.length >= 35) {
       return {
-        msg: "frame title must be greater than 3",
+        msg: "frame title must be greater than 3 and less than 35",
       };
     }
     let frame: Frame;
@@ -88,7 +88,6 @@ export class Frames {
           .getMany();
       }
 
-      console.log(framess[0].likes);
       const res: getFramesRes[] = [];
       for (let frame of framess) {
         const likeMan = await Like.createQueryBuilder()

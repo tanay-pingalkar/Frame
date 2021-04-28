@@ -12,7 +12,6 @@ export const handleGoogle = async (
     token = await client.request<tokenData>(GOOGLE_AUTH, {
       token: googleData.tokenId,
     });
-    console.log(token);
     if (token.googleLogin!.ErrorMsg) {
       seterror("*" + token.googleLogin!.ErrorMsg);
       return false;

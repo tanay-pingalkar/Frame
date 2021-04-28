@@ -10,7 +10,7 @@ export const useGetFrames = (userId: number, lastFrameId: number) => {
       client
         .request(GET_FRAMES, { userId: userId, lastFrameId: lastFrameId })
         .then(({ getFrames }: getFramesType) => {
-          if (getFrames[0].frame) setFrames(frames.concat(getFrames));
+          if (getFrames) setFrames(frames.concat(getFrames));
         });
     }
 

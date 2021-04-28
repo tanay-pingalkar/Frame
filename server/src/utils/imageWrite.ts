@@ -13,8 +13,8 @@ export const write = async (
           __dirname + `/../../../images/${img_uuid + file.filename}`
         )
       )
-      .on("finish", () => console.log("saved"))
-      .on("error", (e) => console.log("oops", e));
+      .on("finish", () => console.log("image saved 🎉"))
+      .on("error", (e) => console.log("oops image failed to save 😞", e));
     return true;
   } catch (error) {
     console.log(error);

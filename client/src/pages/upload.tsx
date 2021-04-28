@@ -6,13 +6,14 @@ import UploadSvg from "../svg/upload";
 import "../styles/upload.scss";
 import ReactLoading from "react-loading";
 import { useHistory } from "react-router";
+import { state } from "../utils/types";
 
 const Upload = () => {
   const [title, setTitle] = useState("");
   const [description, setdescription] = useState("");
   const [img, setImg] = useState<File>();
   const [base64, setBase64] = useState<string | ArrayBuffer | null>("");
-  const userInfo = useSelector((states: any) => states.userInfo);
+  const userInfo = useSelector((states: state) => states.userInfo);
   const [isLoading, setLoading] = useState(false);
   const history = useHistory();
   const handleSubmit = async () => {
@@ -30,7 +31,7 @@ const Upload = () => {
       });
       alert(res.addFrame.msg);
       if (res.addFrame.msg === "success") {
-        history.push("/app/home");
+        history.replace("/");
       }
     } catch (err) {
       setLoading(false);
@@ -71,8 +72,9 @@ const Upload = () => {
           className="description"
           onChange={(e) => setdescription(e.target.value.trim())}
         ></textarea>
-        <button onClick={handleSubmit}>
-          {isLoading ? (
+
+        {isLoading ? (
+          <button>
             <ReactLoading
               type={"bars"}
               color={"black"}
@@ -80,10 +82,10 @@ const Upload = () => {
               width={"40px"}
               className="loader"
             />
-          ) : (
-            <>Upload</>
-          )}
-        </button>
+          </button>
+        ) : (
+          <button onClick={handleSubmit}>Upload</button>
+        )}
       </div>
     </div>
   );

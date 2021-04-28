@@ -52,5 +52,14 @@ export interface getFramesType {
   getFrames: frames;
 }
 
+export type isAuth = "nolog" | "logging" | "logged";
+export interface state {
+  isAuth: isAuth;
+  userInfo: {
+    id: string;
+    name: string;
+    email: string;
+  };
+}
 export type setStateString = (value: React.SetStateAction<string>) => void;
 export type setStateJsx = (value: React.SetStateAction<boolean>) => void;

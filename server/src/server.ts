@@ -10,7 +10,6 @@ const PORT = process.env.PORT || 4000;
 async function main() {
   await createCon();
   const schema = await createSchema();
-  console.log("lol");
   const server = new ApolloServer({ schema });
   server.applyMiddleware({
     app,
@@ -21,7 +20,8 @@ async function main() {
   });
   app.use(express.static(__dirname + "/../../images"));
   app.listen(PORT, () => {
-    console.log("Server has started!");
+    console.clear();
+    console.log(`Server has started on ${PORT} 🚀`);
   });
 }
 main();

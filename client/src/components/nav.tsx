@@ -7,10 +7,11 @@ import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import Add from "../svg/add";
+import { state } from "../utils/types";
 
 const Nav = () => {
-  const auth: string = useSelector((state: any) => state.isAuth);
-  const { name } = useSelector((state: any) => state.userInfo);
+  const auth: string = useSelector((state: state) => state.isAuth);
+  const { name } = useSelector((state: state) => state.userInfo);
   const history = useHistory();
   return (
     <>
@@ -33,7 +34,7 @@ const Nav = () => {
             <Bell></Bell>
             <h2>Notification</h2>
           </div>
-          <div className="add" onClick={() => history.push("/app/upload")}>
+          <div className="add" onClick={() => history.replace("/app/upload")}>
             <Add></Add>
             <h2>Post frame</h2>
           </div>

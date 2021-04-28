@@ -8,6 +8,7 @@ client/yarn.lock
 server/images/*.jpg
 server/images/*.png
 server/images/*.jpeg
+server/images/*.gif
 server/yarn-error.log
 server/yarn.lock
 node_modules

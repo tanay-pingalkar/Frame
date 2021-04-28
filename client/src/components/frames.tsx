@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useGetFrames } from "../utils/useGetFrame";
-import { frame } from "../utils/types";
+import { frame, state } from "../utils/types";
 import Frame from "./frame";
 import "../styles/frame.scss";
 import { useSelector } from "react-redux";
@@ -15,16 +15,14 @@ const Frames = () => {
   const [doo, setdo] = useState(true);
   const [lastframe, setlastframe] = useState(0);
 
-  const { id } = useSelector((state: any) => state.userInfo);
+  const { id } = useSelector((state: state) => state.userInfo);
 
   const frames = useGetFrames(Number(id), lastframe);
   const up = useUp(frames, seti, i, setNoWayBack, noWayBack, setlastframe);
   const down = useDown(frames, seti, i);
 
-  let even: number = 1;
-
   useEffect(() => {
-    if (frames.length !== 0) {
+    if (frames.length > 0 && frames.length < 9) {
       upFunc(i);
       seti(i + 1);
       setNoWayBack(noWayBack + 1);
@@ -34,7 +32,6 @@ const Frames = () => {
   }, [frames]);
 
   const bind = useDrag((state) => {
-    console.log(state._movement[1] < 10, state._movement[1]);
     if (state._movement[1] < -7 && doo) {
       const bool = up();
       if (bool) {
@@ -56,7 +53,6 @@ const Frames = () => {
       }
     }
   });
-  console.log(doo);
   return (
     <div
       className="frames"
