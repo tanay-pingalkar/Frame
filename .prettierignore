@@ -3,3 +3,5 @@ client/node_modules
 server/dist
 client/dist
 server/coverage
+pgdata
+server/images

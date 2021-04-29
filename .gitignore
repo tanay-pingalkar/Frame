@@ -13,3 +13,4 @@ server/yarn-error.log
 server/yarn.lock
 node_modules
 server/coverage
+pgdata

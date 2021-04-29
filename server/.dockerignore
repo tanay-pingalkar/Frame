@@ -1,0 +1,7 @@
+node_modules
+images/*.jpg
+images/*.png
+images/*.jpeg
+images/*.gif
+coverage
+dist

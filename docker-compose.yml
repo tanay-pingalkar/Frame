@@ -1,0 +1,24 @@
+version: "3.7"
+services:
+  db:
+    image: postgres:alpine
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: frame
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  server:
+    build: ./server
+    depends_on:
+      - db
+    ports:
+      - "4000:4000"
+  client:
+    build: ./client
+    depends_on:
+      - server
+    ports:
+      - "3000:3000"
