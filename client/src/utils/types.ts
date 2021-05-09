@@ -36,7 +36,7 @@ export interface whereActtion extends Omit<action, "payload"> {
 
 export interface frame {
   likeNumber: number;
-  isLiked: true;
+  isLiked: boolean;
   frame: {
     title: string;
     frame: string;

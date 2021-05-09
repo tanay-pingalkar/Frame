@@ -17,32 +17,42 @@ const Frame: React.FC<props> = ({ frame }) => {
 
   const like = async () => {
     try {
+      // console.log(client);
       let res = await client.request(LIKE, {
         userId: Number(id),
         postId: Number(frame.frame.id),
       });
-      console.log(res);
+
       setLiked(res.like.like);
       if (res.like.errorMsg === "disliked") {
         setLikeNumber(likeNumber - 1);
       } else {
         setLikeNumber(likeNumber + 1);
       }
-      console.log(res);
     } catch (err) {
       console.log(err);
     }
   };
   return (
-    <div className="card">
-      <p className="name">{frame.frame.user.name}</p>
-      <p className="title">{frame.frame.title}</p>
-      <img src={frame.frame.frame} alt="lol" className="img"></img>
-      <p className="description">{frame.frame.description}</p>
-      <span onClick={() => like()}>
+    <div className="card" data-testid="card">
+      <p className="name" data-testid="name">
+        {frame.frame.user.name}
+      </p>
+      <p className="title" data-testid="title">
+        {frame.frame.title}
+      </p>
+      <img
+        src={frame.frame.frame}
+        alt="lol"
+        className="img"
+        data-testid="img"
+      ></img>
+      <p className="description" data-testid="description">
+        {frame.frame.description}
+      </p>
+      <span onClick={() => like()} data-testid="like">
         {isLiked ? <FilledHeart></FilledHeart> : <Heart></Heart>}
-
-        <p>{likeNumber}</p>
+        <p data-testid="like-num">{likeNumber}</p>
       </span>
     </div>
   );
