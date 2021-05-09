@@ -19,7 +19,10 @@ jobs:
       - name: Testing client 🧪
         run: cd client && yarn test
         
-      - name: Testing server 🧪
+      - name: Building server 🏗️ 
+        run: cd server && yarn build
+        
+      - name: Testing client 🧪
         run: yarn test:server
   
        
