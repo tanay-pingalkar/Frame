@@ -15,9 +15,11 @@ jobs:
       - name: Lint 🧐
         run: yarn format
         
-     - name: Testing server 🧪
-       run: yarn test:server
-       
-     - name: Testing client 🧪
-       run: cd client && yarn test
+             
+      - name: Testing client 🧪
+        run: cd client && yarn test
+        
+      - name: Testing server 🧪
+        run: yarn test:server
+  
        
