@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-dotenv.config({ path: __dirname + "/../../.env" });
+dotenv.config();
 export const jwtgen = (user_id: number): string => {
   const payload = {
     user: user_id,

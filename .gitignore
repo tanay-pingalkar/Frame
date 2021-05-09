@@ -15,3 +15,4 @@ node_modules
 server/coverage
 pgdata
 yarn.lock
+client/coverage
