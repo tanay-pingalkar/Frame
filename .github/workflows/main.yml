@@ -9,8 +9,15 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: formating
+      - name: Installing 🔧
         run: yarn
         
-      - name: lint
+      - name: Lint 🧐
         run: yarn format
+        
+     - name: Testing server 🧪
+       run: yarn test:server
+       
+     - name: Testing client 🧪
+       run: cd client && yarn test
+       
