@@ -11,7 +11,7 @@ $small_left: 2%;
   width: 96%;
   position: relative;
   left: 2%;
-  height: 60%;
+  height: 70%;
   background-color: azure;
 }
 .card {
@@ -34,8 +34,15 @@ $small_left: 2%;
     margin-left: 10px;
     font-size: 17px;
     overflow-wrap: break-word;
-    height: 15%;
+    height: 10%;
     overflow-y: scroll;
+  }
+  span {
+    margin-left: 2%;
+    display: flex;
+    justify-content: space-between;
+    width: 35px;
+    font-weight: 500;
   }
 }
 .frames {

@@ -14,3 +14,4 @@ server/yarn.lock
 node_modules
 server/coverage
 pgdata
+yarn.lock
