@@ -10,11 +10,21 @@ jobs:
     
     services:
       postgres:
-        image: postgres
+        image: postgres:latest-alpine
         env:  
           POSTGRES_PASSWORD: postgres
           POSTGRES_USER: postgres
-          POSTGRES_DATABASE: test
+          POSTGRES_DB: test
+          POSTGRES_PORT: 5432
+          
+        ports:
+          - 5432:5432
+          
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       - uses: actions/checkout@v2
@@ -25,7 +35,6 @@ jobs:
       - name: Lint 🧐
         run: yarn format
         
-             
       - name: Testing client 🧪
         run: cd client && yarn test
         
@@ -33,13 +42,15 @@ jobs:
         run: cd server && yarn build
       
       - name: Filling env
-        run: cd server && touch .env
-            && echo TEST_NAME="postgres" >> .env
-            && echo TEST_PASSWORD="postgres" >> .env
-            && echo TEST_DATABASE="test" >> .env
-            && echo HOST="db" >> .env
-            && echo JWT_SECRET="a secret" >> .env
-            && cat .env
+        run: |
+            cd server
+            touch .env
+            echo TEST_NAME="postgres" >> .env
+            echo TEST_PASSWORD="postgres" >> .env
+            echo TEST_DATABASE="test" >> .env
+            echo HOST="db" >> .env
+            echo JWT_SECRET="a secret" >> .env
+            cat .env
         
       - name: Testing client 🧪
         run: yarn test:server
