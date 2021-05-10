@@ -24,7 +24,7 @@ const Nav = () => {
             <h2>{name}</h2>
           </div>
 
-          <div className="toggler">
+          <div className="toggler" data-testid="toggler">
             <Search></Search>
             <h2>Search</h2>
             <br></br>
@@ -34,7 +34,11 @@ const Nav = () => {
             <Bell></Bell>
             <h2>Notification</h2>
           </div>
-          <div className="add" onClick={() => history.replace("/app/upload")}>
+          <div
+            className="add"
+            onClick={() => history.replace("/app/upload")}
+            data-testid="button"
+          >
             <Add></Add>
             <h2>Post frame</h2>
           </div>

@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testing login wrapper component should match snapshoot 1`] = `
+<div
+  className="screen"
+>
+  <div
+    className="board"
+  />
+  <div
+    className="form"
+  >
+    <h1>
+      is a prop
+    </h1>
+  </div>
+</div>
+`;

@@ -1,5 +1,4 @@
 import Frame from "../components/frame";
-import React from "react";
 import { Provider } from "react-redux";
 import configureMockStore, { MockStoreEnhanced } from "redux-mock-store";
 import thunk from "redux-thunk";
