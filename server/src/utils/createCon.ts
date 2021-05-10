@@ -18,6 +18,7 @@ export const createCon = async (): Promise<Connection> => {
 };
 
 export const createTestCon = async (): Promise<Connection> => {
+  console.log(process.env.TEST_NAME)
   return await createConnection({
     type: "postgres",
     username: process.env.TEST_NAME,

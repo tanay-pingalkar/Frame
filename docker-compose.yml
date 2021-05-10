@@ -1,3 +1,5 @@
+# my first docker compose for my project
+
 version: "3.7"
 services:
   db:
