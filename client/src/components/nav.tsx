@@ -9,7 +9,7 @@ import { useHistory } from "react-router-dom";
 import Add from "../svg/add";
 import { state } from "../utils/types";
 
-const Nav = () => {
+const Nav = (): JSX.Element => {
   const auth: string = useSelector((state: state) => state.isAuth);
   const { name } = useSelector((state: state) => state.userInfo);
   const history = useHistory();

@@ -8,23 +8,21 @@ import Frames from "../components/frames";
 import Upload from "./upload";
 import "../styles/feed.scss";
 import { Route, Switch, useHistory } from "react-router";
+import { reduxState } from "../utils/types";
 dotenv.config();
 
-const App = () => {
-  const isAuth = useSelector((state: any) => state.isAuth);
-  const userInfo = useSelector((state: any) => state.userInfo);
+const App = (): JSX.Element => {
+  const isAuth = useSelector((state: reduxState) => state.isAuth);
+  const userInfo = useSelector((state: reduxState) => state.userInfo);
   const history = useHistory();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setAuth);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     console.log(isAuth, userInfo);
     if (isAuth === "nolog") history.push("/login");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuth]);
 
   return (

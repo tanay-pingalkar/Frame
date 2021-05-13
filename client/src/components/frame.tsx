@@ -10,6 +10,8 @@ import { useSelector } from "react-redux";
 interface props {
   frame: frame;
 }
+
+/* eslint-disable react/prop-types */
 const Frame: React.FC<props> = ({ frame }) => {
   const [isLiked, setLiked] = useState<boolean>(frame.isLiked);
   const [likeNumber, setLikeNumber] = useState(frame.likeNumber);
@@ -18,7 +20,7 @@ const Frame: React.FC<props> = ({ frame }) => {
   const like = async () => {
     try {
       // console.log(client);
-      let res = await client.request(LIKE, {
+      const res = await client.request(LIKE, {
         userId: Number(id),
         postId: Number(frame.frame.id),
       });

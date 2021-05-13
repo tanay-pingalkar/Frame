@@ -3,7 +3,7 @@ import { client } from "../../graphql/client";
 import { AUTH } from "../../graphql/queries/auth";
 import { authData, userAction } from "../../utils/types";
 
-export const setAuth = async (dispatch: Dispatch) => {
+export const setAuth = async (dispatch: Dispatch): Promise<void> => {
   const token = localStorage.getItem("TOKEN");
   if (!token) {
     dispatch<userAction>({ type: "nope" });

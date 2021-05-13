@@ -89,13 +89,13 @@ export class Frames {
       }
 
       const res: getFramesRes[] = [];
-      for (let frame of framess) {
+      for (const frame of framess) {
         const likeMan = await Like.createQueryBuilder()
           .where("Like.giverId = :giverId", { giverId: info.UserId })
           .andWhere("Like.takerId = :takerId", { takerId: frame.id })
           .select("*")
           .execute();
-        let lineNumber: number = 0;
+        let lineNumber = 0;
         if (frame.likes) lineNumber = frame.likes.length;
         res.push({
           frame: frame,

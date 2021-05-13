@@ -9,7 +9,7 @@ import { useUp } from "../utils/up";
 import { up as upFunc } from "../utils/up";
 import { useDown } from "../utils/down";
 
-const Frames = () => {
+const Frames = (): JSX.Element => {
   const [i, seti] = useState(0);
   const [noWayBack, setNoWayBack] = useState(0);
   const [doo, setdo] = useState(true);
@@ -27,8 +27,6 @@ const Frames = () => {
       seti(i + 1);
       setNoWayBack(noWayBack + 1);
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [frames]);
 
   const bind = useDrag((state) => {
@@ -82,6 +80,7 @@ const Frames = () => {
       }}
     >
       {frames.map((frame: frame) => (
+        // eslint-disable-next-line react/jsx-key
         <Frame frame={frame}></Frame>
       ))}
     </div>

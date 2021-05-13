@@ -6,12 +6,16 @@
   "author": "tanay-pingalkar <tpingalkar@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.23.0",
+    "@typescript-eslint/parser": "^4.23.0",
     "concurrently": "^6.0.0",
+    "eslint": "^7.26.0",
+    "eslint-plugin-react": "^7.23.2",
     "prettier": "2.2.1"
   },
   "scripts": {
     "format": "npx prettier --write ./server && npx prettier --write ./client && npx prettier --check ./client && npx prettier --check ./server",
-    "install": "cd server && yarn && cd .. && cd client && yarn && cd ..",
+    "install_all_deps": "yarn && cd server && yarn && cd .. && cd client && yarn && cd ..",
     "start": "concurrently \"cd server && yarn start\" \"cd client && yarn start\"",
     "test:server": "cd server && yarn test",
     "start:server": "cd server && yarn start",

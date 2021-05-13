@@ -8,7 +8,7 @@ import ReactLoading from "react-loading";
 import { useHistory } from "react-router";
 import { state } from "../utils/types";
 
-const Upload = () => {
+const Upload = (): JSX.Element => {
   const [title, setTitle] = useState("");
   const [description, setdescription] = useState("");
   const [img, setImg] = useState<File>();
@@ -56,9 +56,11 @@ const Upload = () => {
             type="file"
             className="image-input"
             onChange={(e) => {
-              const file = e.target!.files![0];
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              const file = e.target.files[0];
               setImg(file);
-              var reader = new FileReader();
+              const reader = new FileReader();
               reader.onloadend = function () {
                 setBase64(reader.result);
               };

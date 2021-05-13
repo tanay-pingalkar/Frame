@@ -1,4 +1,4 @@
-const Search = () => {
+const Search = (): JSX.Element => {
   return (
     <svg
       width="22"

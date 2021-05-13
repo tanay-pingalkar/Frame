@@ -1,4 +1,3 @@
-import thunk from "redux-thunk";
 import { cleanup, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import renderer from "react-test-renderer";

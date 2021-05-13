@@ -1,4 +1,4 @@
-const Upload = () => {
+const Upload = (): JSX.Element => {
   return (
     <svg
       width="46"

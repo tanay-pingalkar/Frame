@@ -1,6 +1,6 @@
 import { useHistory } from "react-router";
 
-const Home = () => {
+const Home = (): JSX.Element => {
   const history = useHistory();
   return (
     <svg

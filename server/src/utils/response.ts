@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-types*/
+
 import { Users } from "../entities/users";
 import { ObjectType, Field } from "type-graphql";
 import { Frame } from "../entities/frame";

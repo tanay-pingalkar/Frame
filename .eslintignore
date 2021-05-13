@@ -1,0 +1,4 @@
+node_modules
+pgdata
+.github
+server/dist

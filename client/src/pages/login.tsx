@@ -7,14 +7,14 @@ import "../styles/login.scss";
 import ReactLoading from "react-loading";
 import { Link, useHistory } from "react-router-dom";
 import { tokenData } from "../utils/types";
-import GoogleLogin from "react-google-login";
+import GoogleLogin, { GoogleLoginResponse } from "react-google-login";
 import Google from "../svg/google";
 import dotenv from "dotenv";
 import { handleGoogle } from "../utils/googleLogin";
 import { useDispatch } from "react-redux";
 dotenv.config();
 
-const Login = () => {
+const Login = (): JSX.Element => {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [error, seterror] = useState("");
@@ -30,15 +30,15 @@ const Login = () => {
         email: email,
         password: password,
       });
-      if (token.login!.ErrorMsg) seterror("*" + token.login!.ErrorMsg);
+      if (token.login?.ErrorMsg) seterror("*" + token.login.ErrorMsg);
     } catch (err) {
       console.log(err);
       setLoading(false);
       return;
     }
     setLoading(false);
-    if (token.login!.token) {
-      localStorage.setItem("TOKEN", token.login!.token);
+    if (token.login?.token) {
+      localStorage.setItem("TOKEN", token.login.token);
       dispatch({ type: "logging" });
       history.push("/app/home");
     }
@@ -72,9 +72,9 @@ const Login = () => {
           )}
         </button>
         <GoogleLogin
-          clientId={process.env.REACT_APP_SECRET!}
+          clientId={process.env.REACT_APP_SECRET as string}
           onSuccess={(data) => {
-            const isOk = handleGoogle(data, seterror);
+            const isOk = handleGoogle(data as GoogleLoginResponse, seterror);
             if (isOk) {
               history.push("/app/home");
             }

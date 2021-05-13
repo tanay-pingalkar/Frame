@@ -1,4 +1,4 @@
-const Google = () => {
+const Google = (): JSX.Element => {
   return (
     <svg
       width="20"
@@ -8,7 +8,7 @@ const Google = () => {
       xmlns="http://www.w3.org/2000/svg"
       className="google-icon"
     >
-      <g clip-path="url(#clip0)">
+      <g clipPath="url(#clip0)">
         <path
           d="M6.64863 18.1294L5.60438 22.0277L1.78764 22.1085C0.646992 19.9928 0 17.5723 0 15C0 12.5126 0.604922 10.167 1.67719 8.10164H1.67801L5.07598 8.72461L6.56449 12.1022C6.25295 13.0104 6.08314 13.9854 6.08314 15C6.08326 16.1011 6.28271 17.1561 6.64863 18.1294Z"
           fill="#FBBB00"

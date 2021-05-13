@@ -21,7 +21,6 @@ export interface subTokenData {
 
 export interface action {
   type: string;
-  payload?: any;
 }
 
 export interface userAction extends action {
@@ -63,3 +62,8 @@ export interface state {
 }
 export type setStateString = (value: React.SetStateAction<string>) => void;
 export type setStateJsx = (value: React.SetStateAction<boolean>) => void;
+
+export interface reduxState {
+  isAuth: isAuth;
+  userInfo: user;
+}

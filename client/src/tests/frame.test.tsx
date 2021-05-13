@@ -20,7 +20,7 @@ const mockStore = configureMockStore([thunk]);
 jest.mock("../graphql/client");
 
 describe("testing frame component", () => {
-  let store: MockStoreEnhanced<unknown, {}>;
+  let store: MockStoreEnhanced<unknown>;
   let data: frame;
   beforeEach(() => {
     store = mockStore({
@@ -84,6 +84,7 @@ describe("testing frame component", () => {
     expect(item).toBeInTheDocument();
     expect(item).toHaveTextContent("100".toString());
     const mockRes = { like: { like: true, errorMsg: null } };
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     client.request.mockResolvedValue(mockRes);
     act(() => {
@@ -96,6 +97,7 @@ describe("testing frame component", () => {
 
     const mocknewRes = { like: { like: false, errorMsg: "disliked" } };
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     client.request.mockResolvedValue(mocknewRes);
     act(() => {

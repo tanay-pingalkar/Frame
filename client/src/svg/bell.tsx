@@ -1,4 +1,4 @@
-const Bell = () => {
+const Bell = (): JSX.Element => {
   return (
     <svg
       width="22"

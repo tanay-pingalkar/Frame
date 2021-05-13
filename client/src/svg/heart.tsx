@@ -1,4 +1,4 @@
-const Heart = () => {
+const Heart = (): JSX.Element => {
   return (
     <svg
       width="20"

@@ -3,16 +3,12 @@ server/node_modules
 server/dist
 .env
 client/yarn-error.log
-server/yarn.lock
-client/yarn.lock
 server/images/*.jpg
 server/images/*.png
 server/images/*.jpeg
 server/images/*.gif
 server/yarn-error.log
-server/yarn.lock
 node_modules
 server/coverage
 pgdata
-yarn.lock
 client/coverage

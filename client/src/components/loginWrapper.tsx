@@ -9,6 +9,7 @@ const LoginWrapper: React.FC<props> = (props) => {
   return (
     <div {...props} className="screen">
       <div className="board"></div>
+      {/* eslint-disable-next-line react/prop-types  */}
       <div className="form">{props.children}</div>
     </div>
   );

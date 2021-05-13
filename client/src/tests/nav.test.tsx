@@ -11,7 +11,7 @@ import { createMemoryHistory } from "history";
 const mockStore = configureMockStore([thunk]);
 
 describe("testing frame component", () => {
-  let store: MockStoreEnhanced<unknown, {}>;
+  let store: MockStoreEnhanced<unknown>;
   beforeEach(() => {
     store = mockStore({
       userInfo: {
@@ -21,7 +21,7 @@ describe("testing frame component", () => {
     });
   });
   afterEach(() => {
-    // jest.clearAllMocks();
+    jest.clearAllMocks();
     cleanup();
   });
   it("should render Nav properly", async () => {
@@ -48,10 +48,7 @@ describe("testing frame component", () => {
     });
 
     expect(pushSpy).toBeCalledWith("/app/upload");
-
-    // expect(
-
-    // ).toHaveBeenCalledTimes(1);
+    console.log();
   });
   it("should render Nav when logging is false", () => {
     store = mockStore({

@@ -7,13 +7,14 @@ import { client } from "../graphql/client";
 import { REGISTER } from "../graphql/mutations/register";
 import { Link, useHistory } from "react-router-dom";
 import { tokenData } from "../utils/types";
-import GoogleLogin from "react-google-login";
+import GoogleLogin, { GoogleLoginResponse } from "react-google-login";
 import Google from "../svg/google";
 import { handleGoogle } from "../utils/googleLogin";
 import { useDispatch } from "react-redux";
-require("dotenv").config();
+import dotenv from "dotenv";
+dotenv.config();
 
-const Register = () => {
+const Register = (): JSX.Element => {
   const [name, setName] = useState("");
   const [password, setpassword] = useState("");
   const [email, setemail] = useState("");
@@ -32,15 +33,15 @@ const Register = () => {
         email: email,
         password: password,
       });
-      if (token.register!.ErrorMsg) seterror("*" + token.register!.ErrorMsg);
+      if (token.register?.ErrorMsg) seterror("*" + token.register.ErrorMsg);
     } catch (err) {
       console.log(err);
       setLoading(false);
       return;
     }
     setLoading(false);
-    if (token.register!.token) {
-      localStorage.setItem("TOKEN", token.register!.token);
+    if (token.register?.token) {
+      localStorage.setItem("TOKEN", token.register.token);
       dispatch({ type: "logging" });
       history.push("/app/home");
     }
@@ -77,9 +78,9 @@ const Register = () => {
           )}
         </button>
         <GoogleLogin
-          clientId={process.env.REACT_APP_SECRET!}
+          clientId={process.env.REACT_APP_SECRET as string}
           onSuccess={(data) => {
-            const isOk = handleGoogle(data, seterror);
+            const isOk = handleGoogle(data as GoogleLoginResponse, seterror);
             if (isOk) {
               history.push("/app/home");
             }

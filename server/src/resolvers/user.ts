@@ -9,6 +9,7 @@ import { jwtgen } from "../utils/jwt";
 import { OAuth2Client } from "google-auth-library";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
+import { Verified } from "src/utils/types";
 
 dotenv.config({ path: __dirname + "/../../.env" });
 const client = new OAuth2Client(process.env.REACT_APP_SECRET);
@@ -17,7 +18,7 @@ const client = new OAuth2Client(process.env.REACT_APP_SECRET);
 @Resolver()
 export class User {
   @Query(() => [Users])
-  users() {
+  users(): Promise<Users[]> {
     return Users.find();
   }
 
@@ -50,11 +51,11 @@ export class User {
 
   @Mutation(() => tokenResponse)
   async login(@Arg("userInfo") userInfo: loginInput): Promise<tokenResponse> {
-    let user: Users;
+    const user: Users = await Users.findOne({ email: userInfo.email });
 
     /* if given string is email then it will find user in database for email 
     or it will find using name, validateEmail is a regex function in utils */
-    user = await Users.findOne({ email: userInfo.email });
+
     if (!user) {
       return {
         ErrorMsg: "user does not exist",
@@ -83,15 +84,15 @@ export class User {
 
   @Query(() => userResponse)
   async auth(@Arg("token") token: string): Promise<userResponse> {
-    let verified: any;
+    let verified: Verified;
     try {
-      verified = jwt.verify(token, process.env.JWT_SECRET);
+      verified = jwt.verify(token, process.env.JWT_SECRET) as Verified;
     } catch (err) {
       return {
         ErrorMsg: "token not valid",
       };
     }
-    const user = await Users.findOne(verified.user!);
+    const user = await Users.findOne(verified.user);
     return {
       user: user,
     };

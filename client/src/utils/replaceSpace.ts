@@ -1,8 +1,10 @@
+import { React } from "@ungap/global-this";
+
 export const replace = (
-  e: any,
+  e: React.ChangeEvent<HTMLInputElement>,
   setName: React.Dispatch<React.SetStateAction<string>>
-) => {
-  e = e.target.value;
-  e = e.replace(/\s/g, "-");
-  setName(e);
+): void => {
+  let val: string = e.target.value;
+  val = val.replace(/\s/g, "-");
+  setName(val);
 };

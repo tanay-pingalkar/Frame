@@ -4,7 +4,7 @@ import { Upload } from "./types";
 export const write = async (
   file: Upload,
   img_uuid: string
-): Promise<Boolean> => {
+): Promise<boolean> => {
   try {
     await file
       .createReadStream()

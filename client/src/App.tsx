@@ -3,7 +3,7 @@ import Login from "./pages/login";
 import Register from "./pages/register";
 import AppM from "./pages/app";
 
-const App = () => {
+const App = (): JSX.Element => {
   return (
     <Router>
       <Route path="/register">
