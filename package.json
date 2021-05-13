@@ -19,6 +19,10 @@
     "start": "concurrently \"cd server && yarn start\" \"cd client && yarn start\"",
     "test:server": "cd server && yarn test",
     "start:server": "cd server && yarn start",
-    "start:client": "cd client && yarn start"
+    "start:client": "cd client && yarn start",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "typescript": "^4.2.4"
   }
 }

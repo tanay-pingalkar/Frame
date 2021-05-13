@@ -1,4 +1,4 @@
-name: CI
+name: PUSH
 
 on: push
 
@@ -36,8 +36,11 @@ jobs:
           cd client
           yarn install ----frozen-lockfile
 
-      - name: Lint 🧐
+      - name: Format✨
         run: yarn format
+
+      - name: Linting 🧐
+        run: yarn lint
 
       - name: Testing client 🧪
         run: cd client && yarn test

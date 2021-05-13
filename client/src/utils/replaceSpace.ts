@@ -1,4 +1,4 @@
-import { React } from "@ungap/global-this";
+import React from "react";
 
 export const replace = (
   e: React.ChangeEvent<HTMLInputElement>,

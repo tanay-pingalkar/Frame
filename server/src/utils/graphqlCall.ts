@@ -1,11 +1,12 @@
-import { graphql, Source } from "graphql";
+import { graphql } from "graphql";
 import "reflect-metadata";
 import { createSchema } from "./createSchema";
 
 export const graphqlCall = async (
-  query: Source,
+  query: string,
   variables?: Record<string, unknown>
-): Promise<unknown> => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+): Promise<any> => {
   const schema = await createSchema();
   return graphql(schema, query, undefined, undefined, variables);
 };
